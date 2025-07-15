@@ -30,6 +30,7 @@ public class Player1Control : MonoBehaviour
 
     void Update()
     {
+        //Aqui empieza el control del movimiento
         stateInfo = playerAnimator.GetCurrentAnimatorStateInfo(0);
         movX = 0f;
 
@@ -98,11 +99,75 @@ public class Player1Control : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
 
+
+        //Aqui empieza el control del combate
+        //Golpes en el suelo
+
+        if (Input.GetKeyDown(KeyCode.J) && !isJumping)
+        {
+            playerAnimator.SetTrigger("LowPunch");
+        }
+
+        if (Input.GetKeyDown(KeyCode.L) && !isJumping)
+        {
+            playerAnimator.SetTrigger("LowKick");
+        }
+
+        if (Input.GetKeyDown(KeyCode.I) && !isJumping)
+        {
+            playerAnimator.SetTrigger("HardPunch");
+        }
+
+        if (Input.GetKeyDown(KeyCode.K) && !isJumping)
+        {
+            playerAnimator.SetTrigger("HardKick");
+        }
+
+        //Golpes en el aire
+        if (Input.GetKeyDown(KeyCode.J) && isJumping)
+        {
+            playerAnimator.SetTrigger("JLP");
+        }
+
+        if (Input.GetKeyDown(KeyCode.L) && isJumping)
+        {
+            playerAnimator.SetTrigger("JLK");
+        }
+
+        if (Input.GetKeyDown(KeyCode.I) && isJumping)
+        {
+            playerAnimator.SetTrigger("JHP");
+        }
+
+        if (Input.GetKeyDown(KeyCode.K) && isJumping)
+        {
+            playerAnimator.SetTrigger("JHK");
+        }
+
+        //Golpes agachado
+        if ((Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.I)) && isDown)
+        {
+            playerAnimator.SetTrigger("DownPunch");
+            playerAnimator.ResetTrigger("LowPunch");
+            playerAnimator.ResetTrigger("HardPunch");
+        }
+
+        if ((Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.K)) && isDown)
+        {
+            playerAnimator.SetTrigger("DownKick");
+            playerAnimator.ResetTrigger("LowKick");
+            playerAnimator.ResetTrigger("HardKick");
+        }
+
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         isJumping = false;
+        playerAnimator.ResetTrigger("JLP");
+        playerAnimator.ResetTrigger("JLK");
+        playerAnimator.ResetTrigger("JHP");
+        playerAnimator.ResetTrigger("JHK");
     }
 
 }

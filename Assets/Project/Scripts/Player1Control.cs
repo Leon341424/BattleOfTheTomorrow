@@ -15,6 +15,7 @@ public class Player1Control : MonoBehaviour
     public float jumpForce;
     private Rigidbody rb;
     public Transform opponent;
+    private bool isHitting;
 
     private KeyCode forwardKey;
     private KeyCode backKey;
@@ -67,14 +68,16 @@ public class Player1Control : MonoBehaviour
         {
             speed = originalSpeed;
             //movX = 1;
-            movX = transform.position.x < opponent.position.x ? 1f : -1f;
+            //movX = transform.position.x < opponent.position.x ? 1f : -1f;
+            movX = isHitting ? 0f : (transform.position.x < opponent.position.x ? 1f : -1f);
             playerAnimator.SetBool("forward", isWalking);
         }
 
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(forwardKey) && !isDown && !isBlock)
         {
             speed = originalSpeed * 2.5f;
-            movX = transform.position.x < opponent.position.x ? 1f : -1f;
+            //movX = transform.position.x < opponent.position.x ? 1f : -1f;
+            movX = isHitting ? 0f : (transform.position.x < opponent.position.x ? 1f : -1f);
             playerAnimator.SetBool("run", isRunning);
         }
         else
@@ -86,7 +89,8 @@ public class Player1Control : MonoBehaviour
         playerAnimator.SetBool("back", isBack);
         if (Input.GetKey(backKey) && !isDown && !isBlock)
         {
-            movX = transform.position.x < opponent.position.x ? -1f : 1f;
+            //smovX = transform.position.x < opponent.position.x ? -1f : 1f;
+            movX = isHitting ? 0f : (transform.position.x < opponent.position.x ? -1f : 1f);
         }
 
         Vector3 movement = new Vector3(movX, 0f, 0f);
@@ -105,22 +109,30 @@ public class Player1Control : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.J) && !isJumping)
         {
-            playerAnimator.SetTrigger("LowPunch");
+            playerAnimator.SetTrigger("LowPunch"); 
+            isHitting = true;
+            StartCoroutine(delayedHit());
         }
 
         if (Input.GetKeyDown(KeyCode.L) && !isJumping)
         {
             playerAnimator.SetTrigger("LowKick");
+            isHitting = true;
+            StartCoroutine(delayedHit());
         }
 
         if (Input.GetKeyDown(KeyCode.I) && !isJumping)
         {
             playerAnimator.SetTrigger("HardPunch");
+            isHitting = true;
+            StartCoroutine(delayedHit());
         }
 
         if (Input.GetKeyDown(KeyCode.K) && !isJumping)
         {
             playerAnimator.SetTrigger("HardKick");
+            isHitting = true;
+            StartCoroutine(delayedHit());
         }
 
         //Golpes en el aire
@@ -168,6 +180,12 @@ public class Player1Control : MonoBehaviour
         playerAnimator.ResetTrigger("JLK");
         playerAnimator.ResetTrigger("JHP");
         playerAnimator.ResetTrigger("JHK");
+    }
+
+    private IEnumerator delayedHit()
+    {
+        yield return new WaitForSeconds(2.0f);
+        isHitting = false;
     }
 
 }

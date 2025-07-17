@@ -184,7 +184,7 @@ public class Player1Control : MonoBehaviour
 
     private IEnumerator delayedHit()
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(0.5f);
         isHitting = false;
     }
 

@@ -1,8 +1,22 @@
 using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Player1Control : MonoBehaviour
 {
+    public class InputCommand
+    {
+        public string input;
+        public float time;
+
+        public InputCommand(string input, float time)
+        {
+            this.input = input;
+            this.time = time;
+        }
+    }
+    private Special specialScript;
+
     private Animator playerAnimator;
     private AnimatorStateInfo stateInfo;
     public float speed;
@@ -20,6 +34,15 @@ public class Player1Control : MonoBehaviour
     private KeyCode forwardKey;
     private KeyCode backKey;
 
+    private bool isSpecial;
+
+    private List<InputCommand> inputHistory = new List<InputCommand>();
+    public float inputBufferTime = 0.6f;
+
+    public Transform grabPoint;
+    private bool isGrabbing;
+    private GameObject grabbedOpponent;
+
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
@@ -27,6 +50,7 @@ public class Player1Control : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         originalSpeed = speed;
         rb.constraints = RigidbodyConstraints.FreezePositionZ;
+        specialScript = GetComponentInChildren<Special>();
     }
 
     void Update()
@@ -103,13 +127,17 @@ public class Player1Control : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
 
+        if (Input.GetKeyDown(KeyCode.U) && !isGrabbing && !isJumping /*&& !isSpecial*/)
+        {
+            TryGrab();
+        }
 
         //Aqui empieza el control del combate
         //Golpes en el suelo
 
-        if (Input.GetKeyDown(KeyCode.J) && !isJumping)
+        if (Input.GetKeyDown(KeyCode.J) && !isJumping && !isSpecial)
         {
-            playerAnimator.SetTrigger("LowPunch"); 
+            playerAnimator.SetTrigger("LowPunch");
             isHitting = true;
             StartCoroutine(delayedHit());
         }
@@ -171,6 +199,19 @@ public class Player1Control : MonoBehaviour
             playerAnimator.ResetTrigger("HardKick");
         }
 
+        //Aqui empiezan los especiales
+        if (Input.GetKeyDown(KeyCode.S))
+            AddInput("Down");
+
+        if (Input.GetKeyDown(forwardKey))
+            AddInput("Forward");
+
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            AddInput("Attack");
+            CheckHadouken();
+        }
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -186,6 +227,108 @@ public class Player1Control : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         isHitting = false;
+    }
+
+    void TryGrab()
+    {
+        playerAnimator.SetTrigger("grab");
+        float distanceToOpponent = Vector3.Distance(transform.position, opponent.position);
+
+        if (distanceToOpponent < 2.5f)
+        {
+            StartCoroutine(ExecuteSuccessfulGrab());
+            Debug.Log("agarre exitoso");
+            //playerAnimator.SetTrigger("GrabSuccess");
+        }
+        else
+        {
+            Debug.Log("agarre fallido");
+        }
+    }
+
+    IEnumerator ExecuteSuccessfulGrab()
+    {
+        yield return new WaitForSeconds(0.3f); 
+
+        float distanceToOpponent = Vector3.Distance(transform.position, opponent.position);
+        if (distanceToOpponent > 2.0f) yield break;
+
+        isGrabbing = true;
+        grabbedOpponent = opponent.gameObject;
+
+        opponent.position = grabPoint.position;
+        opponent.rotation = grabPoint.rotation;
+        opponent.SetParent(grabPoint);
+
+        if (opponent.GetComponent<Rigidbody>())
+            opponent.GetComponent<Rigidbody>().isKinematic = true;
+            rb.isKinematic = true;
+
+        var enemyControl = opponent.GetComponent<Player1Control>();
+        if (enemyControl != null)
+            enemyControl.enabled = false;
+
+        playerAnimator.SetTrigger("GrabSuccess");
+
+        Animator enemyAnimator = opponent.GetComponent<Animator>();
+        if (enemyAnimator != null)
+            enemyAnimator.SetTrigger("grabbed");
+
+        EnemyHealth enemyHealth = grabbedOpponent.GetComponent<EnemyHealth>();
+        if (enemyHealth != null)
+        {
+            enemyHealth.TakeDamageEnemy(20);
+            Debug.Log("¡Agarre causó daño!");
+        }
+
+        StartCoroutine(ReleaseGrab(1.2f));
+    }
+
+    IEnumerator ReleaseGrab(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (grabbedOpponent != null)
+        {
+            grabbedOpponent.transform.SetParent(null);
+
+            if (grabbedOpponent.GetComponent<Rigidbody>())
+                grabbedOpponent.GetComponent<Rigidbody>().isKinematic = false;
+
+            var enemyControl = grabbedOpponent.GetComponent<Player1Control>();
+            if (enemyControl != null)
+                enemyControl.enabled = true;
+        }
+        rb.isKinematic = false;
+        isGrabbing = false;
+    }
+
+    void AddInput(string input)
+    {
+        inputHistory.Add(new InputCommand(input, Time.time));
+        inputHistory.RemoveAll(i => Time.time - i.time > inputBufferTime);
+    }
+
+    void CheckHadouken()
+    {
+        if (inputHistory.Count < 3) return;
+
+        int count = inputHistory.Count;
+        if (inputHistory[count - 3].input == "Down" &&
+            inputHistory[count - 2].input == "Forward" &&
+            inputHistory[count - 1].input == "Attack")
+        {
+            Debug.Log("Especial ejecutado!");
+            isSpecial = true;
+            playerAnimator.SetTrigger("special");
+            specialScript.EnableSpecial();
+            inputHistory.Clear();
+            return;
+        }
+        else
+        {
+            isSpecial = false;
+        }
     }
 
 }

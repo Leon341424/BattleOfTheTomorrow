@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int maxHealth;
-    private int currentHealth;
+    public float maxHealth;
+    private float currentHealth;
     private Animator animator;
 
     public Image healthBarFill;
@@ -21,7 +21,7 @@ public class EnemyHealth : MonoBehaviour
         colliderObject = GetComponent<Collider>();
     }
 
-    public void TakeDamageEnemy(int damage)
+    public void TakeDamageEnemy(float damage)
     {
         currentHealth -= damage;
         animator.SetTrigger("Damage");

@@ -43,6 +43,9 @@ public class Player1Control : MonoBehaviour
     private bool isGrabbing;
     private GameObject grabbedOpponent;
 
+    private bool isSuperSpecial;
+    private PlayerHealth playerHealth;
+
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
@@ -51,6 +54,7 @@ public class Player1Control : MonoBehaviour
         originalSpeed = speed;
         rb.constraints = RigidbodyConstraints.FreezePositionZ;
         specialScript = GetComponentInChildren<Special>();
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
     void Update()
@@ -212,6 +216,15 @@ public class Player1Control : MonoBehaviour
             CheckHadouken();
         }
 
+        //superspecial
+
+        if (Input.GetKeyDown(KeyCode.E) && !isJumping && isSuperSpecial)
+        {
+            specialScript.EnableSuperSpecial();
+            playerAnimator.SetTrigger("SuperSpecial");
+            DisableSuper();
+            playerHealth.ResetPower();
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -238,7 +251,6 @@ public class Player1Control : MonoBehaviour
         {
             StartCoroutine(ExecuteSuccessfulGrab());
             Debug.Log("agarre exitoso");
-            //playerAnimator.SetTrigger("GrabSuccess");
         }
         else
         {
@@ -248,7 +260,7 @@ public class Player1Control : MonoBehaviour
 
     IEnumerator ExecuteSuccessfulGrab()
     {
-        yield return new WaitForSeconds(0.3f); 
+        yield return new WaitForSeconds(0.3f);
 
         float distanceToOpponent = Vector3.Distance(transform.position, opponent.position);
         if (distanceToOpponent > 2.0f) yield break;
@@ -262,7 +274,7 @@ public class Player1Control : MonoBehaviour
 
         if (opponent.GetComponent<Rigidbody>())
             opponent.GetComponent<Rigidbody>().isKinematic = true;
-            rb.isKinematic = true;
+        rb.isKinematic = true;
 
         var enemyControl = opponent.GetComponent<Player1Control>();
         if (enemyControl != null)
@@ -329,6 +341,16 @@ public class Player1Control : MonoBehaviour
         {
             isSpecial = false;
         }
+    }
+    
+    public void EnableSuper()
+    {
+        isSuperSpecial = true;
+    }
+
+    public void DisableSuper()
+    {
+        isSuperSpecial = false;
     }
 
 }

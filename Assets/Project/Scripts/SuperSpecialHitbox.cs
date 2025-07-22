@@ -2,10 +2,10 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
-public class SpecialHitbox : MonoBehaviour
+public class SuperSpecialHitbox : MonoBehaviour
 {
     public float damage;
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Enemy"))
         {
@@ -13,7 +13,6 @@ public class SpecialHitbox : MonoBehaviour
             if (targetHealth != null)
             {
                 targetHealth.TakeDamageEnemy(damage);
-                Destroy(this.gameObject);
             }
         }
     }

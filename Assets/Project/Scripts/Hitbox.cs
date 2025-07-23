@@ -4,25 +4,27 @@ using UnityEngine;
 
 public class Hitbox : MonoBehaviour
 {
-    public int damage;
+    public float damage;
+    private float currentDamage;
     private bool canDamage = false;
-    private bool attack = true;
     private HashSet<GameObject> alreadyHit = new HashSet<GameObject>();
     private PlayerHealth playerPower;
 
     void Start()
     {
         playerPower = GetComponent<PlayerHealth>();
+        currentDamage = damage;
     }
     void OnTriggerEnter(Collider other)
     {
-        if (canDamage && other.CompareTag("Enemy")  && !alreadyHit.Contains(other.gameObject))
+        if (canDamage && other.CompareTag("Enemy") && !alreadyHit.Contains(other.gameObject))
         {
             EnemyHealth targetHealth = other.GetComponent<EnemyHealth>();
-            targetHealth.TakeDamageEnemy(damage);
+            targetHealth.TakeDamageEnemy(currentDamage);
             alreadyHit.Add(other.gameObject);
             playerPower.GainPower(50f);
             DisableDamage();
+            currentDamage = damage;
         }
     }
 
@@ -44,5 +46,9 @@ public class Hitbox : MonoBehaviour
         yield return new WaitForSeconds(time);
         canDamage = false;
     }*/
+    public void AddExtraDamage(float extra)
+    {
+        currentDamage = damage + extra;
+    }
     
 }

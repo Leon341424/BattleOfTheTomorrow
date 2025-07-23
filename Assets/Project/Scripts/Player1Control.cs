@@ -46,6 +46,15 @@ public class Player1Control : MonoBehaviour
     private bool isSuperSpecial;
     private PlayerHealth playerHealth;
 
+    private Weapon arma;
+
+    private GameObject nearbyWeapon = null;
+
+    public bool isWeapon = false;
+
+    public Shooter shooter;
+    private Hitbox hitbox;
+
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
@@ -55,6 +64,9 @@ public class Player1Control : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezePositionZ;
         specialScript = GetComponentInChildren<Special>();
         playerHealth = GetComponent<PlayerHealth>();
+        arma = GetComponent<Weapon>();
+        shooter = GetComponentInChildren<Shooter>();
+        hitbox = GetComponent<Hitbox>();
     }
 
     void Update()
@@ -124,7 +136,7 @@ public class Player1Control : MonoBehaviour
         Vector3 movement = new Vector3(movX, 0f, 0f);
         rb.linearVelocity = new Vector3(movement.x * speed, rb.linearVelocity.y, 0f);
 
-        if (Input.GetKeyDown(KeyCode.W) && !isJumping && !isDown && !isBlock)
+        if (Input.GetKeyDown(KeyCode.W) && !isJumping && !isDown && !isBlock && !isSpecial)
         {
             isJumping = true;
             playerAnimator.SetTrigger("jump");
@@ -146,44 +158,46 @@ public class Player1Control : MonoBehaviour
             StartCoroutine(delayedHit());
         }
 
-        if (Input.GetKeyDown(KeyCode.L) && !isJumping)
+        if (Input.GetKeyDown(KeyCode.L) && !isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("LowKick");
             isHitting = true;
             StartCoroutine(delayedHit());
         }
 
-        if (Input.GetKeyDown(KeyCode.I) && !isJumping)
+        if (Input.GetKeyDown(KeyCode.I) && !isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("HardPunch");
+            hitbox.AddExtraDamage(7.5f);
             isHitting = true;
             StartCoroutine(delayedHit());
         }
 
-        if (Input.GetKeyDown(KeyCode.K) && !isJumping)
+        if (Input.GetKeyDown(KeyCode.K) && !isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("HardKick");
+            hitbox.AddExtraDamage(7.5f);
             isHitting = true;
             StartCoroutine(delayedHit());
         }
 
         //Golpes en el aire
-        if (Input.GetKeyDown(KeyCode.J) && isJumping)
+        if (Input.GetKeyDown(KeyCode.J) && isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("JLP");
         }
 
-        if (Input.GetKeyDown(KeyCode.L) && isJumping)
+        if (Input.GetKeyDown(KeyCode.L) && isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("JLK");
         }
 
-        if (Input.GetKeyDown(KeyCode.I) && isJumping)
+        if (Input.GetKeyDown(KeyCode.I) && isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("JHP");
         }
 
-        if (Input.GetKeyDown(KeyCode.K) && isJumping)
+        if (Input.GetKeyDown(KeyCode.K) && isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("JHK");
         }
@@ -225,6 +239,46 @@ public class Player1Control : MonoBehaviour
             DisableSuper();
             playerHealth.ResetPower();
         }
+
+
+        //Las armas
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (arma.weaponInHand == null)
+            {
+                arma.TryPickup();
+                isWeapon = true;
+            }
+            else
+            {
+                arma.TryDrop();
+                isWeapon = false;
+            }
+        }
+
+        if ((Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.L)
+        || Input.GetKeyDown(KeyCode.I)) && isWeapon)
+        {
+            if (arma.isGun)
+            {
+                playerAnimator.SetTrigger("Shoot");
+                shooter.EnableShoot();
+            }
+            if (!arma.isGun)
+            {
+                playerAnimator.SetTrigger("WeaponAttack");
+                hitbox.AddExtraDamage(15f);
+            }
+        }
+
+        bool isWalkWeaponBack = Input.GetKey(backKey);
+        playerAnimator.SetBool("backWeapon", isWalkWeaponBack && isWeapon);
+        
+        bool isWalkWeaponForward = Input.GetKey(forwardKey);
+        playerAnimator.SetBool("forwardWeapon", isWalkWeaponForward && isWeapon);
+        
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -342,7 +396,7 @@ public class Player1Control : MonoBehaviour
             isSpecial = false;
         }
     }
-    
+
     public void EnableSuper()
     {
         isSuperSpecial = true;
@@ -351,6 +405,22 @@ public class Player1Control : MonoBehaviour
     public void DisableSuper()
     {
         isSuperSpecial = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Weapon"))
+        {
+            nearbyWeapon = other.gameObject;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Weapon") && other.gameObject == nearbyWeapon)
+        {
+            nearbyWeapon = null;
+        }
     }
 
 }

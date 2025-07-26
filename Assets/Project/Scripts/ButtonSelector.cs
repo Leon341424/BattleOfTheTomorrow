@@ -5,9 +5,15 @@ public class ButtonSelector : MonoBehaviour
 {
     public GameObject firstButton;
 
-    void Start()
+    void OnEnable()
     {
-        EventSystem.current.SetSelectedGameObject(null); // Limpia selección previa
-        EventSystem.current.SetSelectedGameObject(firstButton); // Selecciona el primero
+        StartCoroutine(SelectFirstActiveButton());
+    }
+
+     private System.Collections.IEnumerator SelectFirstActiveButton()
+    {
+        yield return null; 
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstButton); 
     }
 }

@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Weapon
   - Gun
+  - LifeBarP1
+  - PowerBarP1
   layers:
   - Default
   - TransparentFX

@@ -10,6 +10,10 @@ public class MenuManager : MonoBehaviour
     public GameObject audioOptionsPanel;
     public GameObject controlOptionsPanel;
     public GameObject creditsPanel;
+    public GameObject charactersPanel;
+    public GameObject charactersPanelVersus;
+    public GameObject charactersPanelVersusP1;
+    public GameObject charactersPanelVersusP2;
     //private int currentIndex = 0;
 
     //private Dictionary<string, GameObject> panelDict;
@@ -31,6 +35,8 @@ public class MenuManager : MonoBehaviour
         audioOptionsPanel.SetActive(false);
         controlOptionsPanel.SetActive(false);
         creditsPanel.SetActive(false);
+        charactersPanelVersus.SetActive(false);
+        charactersPanel.SetActive(false);
     }
 
     public void Arcade()
@@ -69,5 +75,25 @@ public class MenuManager : MonoBehaviour
     {
         menuPanel.SetActive(false);
         creditsPanel.SetActive(true);
+    }
+
+    public void characters()
+    {
+        menuPanel.SetActive(false);
+        charactersPanel.SetActive(true);
+    }
+
+    public void charactersVersus()
+    {
+        menuPanel.SetActive(false);
+        charactersPanelVersus.SetActive(true);
+        charactersPanelVersusP1.SetActive(true);
+        charactersPanelVersusP2.SetActive(false);
+    }
+    
+    public void charactersVersusP2()
+    {
+        charactersPanelVersusP1.SetActive(false);
+        charactersPanelVersusP2.SetActive(true);
     }
 }

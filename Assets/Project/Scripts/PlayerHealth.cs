@@ -13,8 +13,8 @@ public class PlayerHealth : MonoBehaviour
 
     private Animator animator;
 
-    public Image healthBarFill;
-    public Image powerBarFill;
+    private Image healthBarFill;
+    private Image powerBarFill;
 
     private Player1Control playerControl;
 
@@ -25,7 +25,10 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthUIPlayer();
         UpdatePowerUIPlayer();
         playerControl = GetComponent<Player1Control>();
-        //colliderObject = GetComponent<Collider>();
+        healthBarFill = GameObject.FindWithTag("LifeBarP1").GetComponent<Image>();
+        powerBarFill = GameObject.FindWithTag("PowerBarP1").GetComponent<Image>();
+        /*healthBarFill = GameObject.Find("LifeBarFilledP1").GetComponent<Image>();
+        powerBarFill = GameObject.Find("PowerBarFilledP1").GetComponent<Image>();*/
     }
 
     void Update()

@@ -28,7 +28,7 @@ public class Player1Control : MonoBehaviour
     private bool isJumping = false;
     public float jumpForce;
     private Rigidbody rb;
-    public Transform opponent;
+    private Transform opponent;
     private bool isHitting;
 
     private KeyCode forwardKey;
@@ -50,9 +50,9 @@ public class Player1Control : MonoBehaviour
 
     private GameObject nearbyWeapon = null;
 
-    public bool isWeapon = false;
+    private bool isWeapon = false;
 
-    public Shooter shooter;
+    private Shooter shooter;
     private Hitbox hitbox;
 
     void Start()
@@ -67,6 +67,9 @@ public class Player1Control : MonoBehaviour
         arma = GetComponent<Weapon>();
         shooter = GetComponentInChildren<Shooter>();
         hitbox = GetComponent<Hitbox>();
+
+        GameObject obj = GameObject.FindWithTag("Enemy");
+        opponent = obj.transform;
     }
 
     void Update()
@@ -74,6 +77,9 @@ public class Player1Control : MonoBehaviour
         //Aqui empieza el control del movimiento
         stateInfo = playerAnimator.GetCurrentAnimatorStateInfo(0);
         movX = 0f;
+
+        /*GameObject obj = GameObject.FindWithTag("Enemigo");
+        opponent = obj.transform;*/
 
         if (transform.position.x < opponent.position.x)
         {

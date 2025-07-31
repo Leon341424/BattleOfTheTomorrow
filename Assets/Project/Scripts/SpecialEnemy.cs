@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Special : MonoBehaviour
+public class SpecialEnemy : MonoBehaviour
 {
     public GameObject SpecialPrefab;
     public GameObject SuperSpecialPrefab;
@@ -64,7 +64,7 @@ public class Special : MonoBehaviour
     private void Fire()
     {
         GameObject tmpSpecial = Instantiate(SpecialPrefab, transform.position, Quaternion.identity);
-        Vector3 direction = (opponent.position.x > transform.position.x) ? Vector3.right : Vector3.left;
+        Vector3 direction = (opponent.position.x < transform.position.x) ? Vector3.right : Vector3.left;
         tmpSpecial.transform.right = direction;
         tmpSpecial.GetComponent<Rigidbody>().AddForce(direction * SpecialForce, ForceMode.Impulse);
         Destroy(tmpSpecial, 4f);
@@ -74,7 +74,7 @@ public class Special : MonoBehaviour
     {
         GameObject tmpSuperSpecial = Instantiate(SuperSpecialPrefab, transform.position + new Vector3(33.5f, 2f, 0f),
         Quaternion.identity);
-        Vector3 direction = (opponent.position.x > transform.position.x) ? Vector3.right : Vector3.left;
+        Vector3 direction = (opponent.position.x < transform.position.x) ? Vector3.right : Vector3.left;
         tmpSuperSpecial.transform.right = direction;
         Destroy(tmpSuperSpecial, 1.75f);
     }

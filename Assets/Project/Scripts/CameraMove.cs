@@ -2,14 +2,27 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
-    public Transform target1;
-    public Transform target2;
+    private Transform target1;
+    private Transform target2;
     public float smoothSpeed;
     public Vector3 offset; 
     public float minZoomZ;
     public float maxZoomZ;
     public float zoomLimiter;
-    
+
+    void Start()
+    {
+        Invoke("FindTargets", 0.1f); 
+    }
+
+    void FindTargets()
+    {
+        GameObject personaje1 = GameObject.FindWithTag("Player");
+        GameObject personaje2 = GameObject.FindWithTag("Enemy");
+
+        target1 = personaje1.transform;
+        target2 = personaje2.transform;
+    }
     void LateUpdate() {
         Vector3 middlePoint = (target1.position + target2.position) / 2;
         

@@ -48,11 +48,6 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    /*public void WeaponOrGun()
-    {
-        arm = isGun;
-    }*/
-
     void PickupWeapon(GameObject weapon)
     {
         ResetAllAnimatorTriggers(playerAnimator);
@@ -78,14 +73,14 @@ public class Weapon : MonoBehaviour
             col.enabled = false;
         }
 
+        Quaternion originalRotation = weapon.transform.rotation;
         weapon.transform.SetParent(handPoint);
         weapon.transform.localPosition = Vector3.zero;
-        //weapon.transform.localRotation = Quaternion.identity;
+        weapon.transform.rotation = originalRotation;
 
         weaponInHand = weapon;
         nearbyWeapon = null;
 
-        //Debug.Log("¡Arma recogida!");
     }
 
     private void DropWeapon()
@@ -100,6 +95,17 @@ public class Weapon : MonoBehaviour
         {
             rb.isKinematic = false;
             rb.detectCollisions = true;
+            Vector3 throwDirection = Vector3.zero;
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertical = Input.GetAxisRaw("Vertical");
+
+            if (horizontal != 0 || vertical != 0)
+            {
+                throwDirection = new Vector3(horizontal, 0.3f, vertical).normalized;
+                float throwForce = 8f;
+                rb.AddForce(throwDirection * throwForce, ForceMode.VelocityChange);
+            }
+            
         }
 
         Collider col = weaponInHand.GetComponent<Collider>();
@@ -110,7 +116,6 @@ public class Weapon : MonoBehaviour
 
         weaponInHand = null;
 
-        //Debug.Log("¡Arma soltada!");
     }
     void ResetAllAnimatorTriggers(Animator animator)
     {

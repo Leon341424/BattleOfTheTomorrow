@@ -9,6 +9,8 @@ TagManager:
   - Gun
   - LifeBarP1
   - PowerBarP1
+  - LifeBarP2
+  - PowerBarP2
   layers:
   - Default
   - TransparentFX

@@ -55,6 +55,8 @@ public class Player1Control : MonoBehaviour
     private Shooter shooter;
     private Hitbox hitbox;
 
+    public bool isBlock { get; private set; }
+
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
@@ -97,7 +99,7 @@ public class Player1Control : MonoBehaviour
         bool isDown = Input.GetKey(KeyCode.S);
         playerAnimator.SetBool("down", isDown);
 
-        bool isBlock = Input.GetKey(KeyCode.O);
+        isBlock = Input.GetKey(KeyCode.O);
         playerAnimator.SetBool("block", isBlock);
 
         bool isRunning = Input.GetKey(KeyCode.LeftShift);
@@ -234,6 +236,7 @@ public class Player1Control : MonoBehaviour
         {
             AddInput("Attack");
             CheckHadouken();
+            isSpecial = false;
         }
 
         //superspecial
@@ -283,8 +286,6 @@ public class Player1Control : MonoBehaviour
         
         bool isWalkWeaponForward = Input.GetKey(forwardKey);
         playerAnimator.SetBool("forwardWeapon", isWalkWeaponForward && isWeapon);
-        
-
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -336,7 +337,7 @@ public class Player1Control : MonoBehaviour
             opponent.GetComponent<Rigidbody>().isKinematic = true;
         rb.isKinematic = true;
 
-        var enemyControl = opponent.GetComponent<Player1Control>();
+        var enemyControl = opponent.GetComponent<EnemyControl>();
         if (enemyControl != null)
             enemyControl.enabled = false;
 
@@ -352,7 +353,6 @@ public class Player1Control : MonoBehaviour
             enemyHealth.TakeDamageEnemy(20);
             Debug.Log("¡Agarre causó daño!");
         }
-
         StartCoroutine(ReleaseGrab(1.2f));
     }
 
@@ -367,7 +367,7 @@ public class Player1Control : MonoBehaviour
             if (grabbedOpponent.GetComponent<Rigidbody>())
                 grabbedOpponent.GetComponent<Rigidbody>().isKinematic = false;
 
-            var enemyControl = grabbedOpponent.GetComponent<Player1Control>();
+            var enemyControl = grabbedOpponent.GetComponent<EnemyControl>();
             if (enemyControl != null)
                 enemyControl.enabled = true;
         }

@@ -17,6 +17,7 @@ public class PlayerHealth : MonoBehaviour
     private Image powerBarFill;
 
     private Player1Control playerControl;
+    CapsuleCollider col;
 
     void Start()
     {
@@ -27,8 +28,7 @@ public class PlayerHealth : MonoBehaviour
         playerControl = GetComponent<Player1Control>();
         healthBarFill = GameObject.FindWithTag("LifeBarP1").GetComponent<Image>();
         powerBarFill = GameObject.FindWithTag("PowerBarP1").GetComponent<Image>();
-        /*healthBarFill = GameObject.Find("LifeBarFilledP1").GetComponent<Image>();
-        powerBarFill = GameObject.Find("PowerBarFilledP1").GetComponent<Image>();*/
+        col = GetComponent<CapsuleCollider>();
     }
 
     void Update()
@@ -42,14 +42,22 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamagePlayer(float damage)
     {
+        if (playerControl.isBlock)
+        {
+            damage *= 0.1f;
+            Debug.Log("¡Bloqueando! Daño reducido.");
+        }
         currentHealth -= damage;
-        animator.SetTrigger("Damage");
+        if (!playerControl.isBlock)
+        {
+            animator.SetTrigger("Damage");
+        }
         Debug.Log($"{gameObject.name} took {damage} damage. Remaining: {currentHealth}");
         UpdateHealthUIPlayer();
 
         if (currentHealth <= 0)
         {
-            DieEnemy();
+            Die();
         }
     }
 
@@ -80,10 +88,11 @@ public class PlayerHealth : MonoBehaviour
         currentPower = 0;
     }
 
-    void DieEnemy()
+    void Die()
     {
         Debug.Log($"{gameObject.name} died.");
         animator.SetTrigger("Die");
+        col.direction = 2;
         //colliderObject.enabled = false;
     }
 }

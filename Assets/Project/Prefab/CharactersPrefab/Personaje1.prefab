@@ -46,7 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 6649207094480729451, guid: 6d93d9d16a74ffa48b8716d9c8850348, type: 3}
   BulletForce: 20
-  opponent: {fileID: 0}
 --- !u!1 &3245477116673553379
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +124,6 @@ MonoBehaviour:
   SpecialPrefab: {fileID: 5583397743581259825, guid: 33f343e3524f60d4ca2f813bf5172b5b, type: 3}
   SuperSpecialPrefab: {fileID: 7274944520816815447, guid: 02974c3a592a97d4fa4fa854e6ad5de0, type: 3}
   SpecialForce: 10
-  opponent: {fileID: 0}
 --- !u!1001 &7412986900245833951
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -189,6 +187,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 3314f16fc48344d47a8a4388b8b36c0e, type: 3}
       propertyPath: m_Name
       value: Personaje1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3314f16fc48344d47a8a4388b8b36c0e, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -415,11 +417,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   jumpForce: 9.8
-  opponent: {fileID: 0}
   inputBufferTime: 0.6
   grabPoint: {fileID: 9222335515779637772}
-  isWeapon: 0
-  shooter: {fileID: 0}
 --- !u!136 &4174346266326692660
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -484,8 +483,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   maxPower: 100
-  healthBarFill: {fileID: 0}
-  powerBarFill: {fileID: 0}
 --- !u!136 &3318468358751822106
 CapsuleCollider:
   m_ObjectHideFlags: 0

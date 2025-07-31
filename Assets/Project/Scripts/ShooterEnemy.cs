@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Shooter : MonoBehaviour
+public class ShooterEnemy : MonoBehaviour
 {
     private bool ShootActive;
     public GameObject BulletPrefab;
@@ -10,7 +10,7 @@ public class Shooter : MonoBehaviour
     private Transform opponent;
     void Start()
     {
-        GameObject obj = GameObject.FindWithTag("Enemy");
+        GameObject obj = GameObject.FindWithTag("Player");
         opponent = obj.transform;
     }
     void Update()

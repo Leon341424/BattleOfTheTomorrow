@@ -6941,6 +6941,10 @@ PrefabInstance:
       value: Personaje2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a0b35147b014f664196c16a93aab6321, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a0b35147b014f664196c16a93aab6321, type: 3}
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
@@ -13348,7 +13352,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: fb6a81987d29ab34ea6885dbf7bb4016, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.714884
+      value: 16.99
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fb6a81987d29ab34ea6885dbf7bb4016, type: 3}
       propertyPath: m_LocalPosition.y
@@ -14534,7 +14538,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1719430481}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7ca7eff495ad6742b8c64148016922c, type: 3}
   m_Name: 
@@ -16941,7 +16945,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: ebeda983ba75820418686206158f3c61, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.4
+      value: -9.72
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ebeda983ba75820418686206158f3c61, type: 3}
       propertyPath: m_LocalPosition.y
@@ -17172,7 +17176,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1999384761}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0008a4b6933300d46909469cd279eb75, type: 3}
   m_Name: 
@@ -17393,7 +17397,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.70710677, z: 0.70710677, w: 0}
   m_LocalPosition: {x: 0, y: 19.8, z: 18.1}
-  m_LocalScale: {x: 10, y: 5, z: 5}
+  m_LocalScale: {x: 10, y: 5, z: 5.3265}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -18480,6 +18484,10 @@ PrefabInstance:
       propertyPath: opponent
       value: 
       objectReference: {fileID: 1719430486}
+    - target: {fileID: 7455617719539887075, guid: 4e4e00ae0c6a8f648b8d9ed26cf42f77, type: 3}
+      propertyPath: inputBufferTime
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 7647483383543223694, guid: 4e4e00ae0c6a8f648b8d9ed26cf42f77, type: 3}
       propertyPath: m_Name
       value: Personaje1

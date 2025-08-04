@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class Player1Control : MonoBehaviour
 {
@@ -57,6 +58,24 @@ public class Player1Control : MonoBehaviour
 
     public bool isBlock { get; private set; }
 
+    private InputSystem_Actions control;
+
+    [SerializeField] private UIManager pausa;
+
+    private void Awake()
+    {
+        control = new InputSystem_Actions();
+    }
+
+    private void OnEnable()
+    {
+        control.Player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        control.Player.Disable();
+    }
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
@@ -69,6 +88,7 @@ public class Player1Control : MonoBehaviour
         arma = GetComponent<Weapon>();
         shooter = GetComponentInChildren<Shooter>();
         hitbox = GetComponent<Hitbox>();
+        pausa = FindFirstObjectByType<UIManager>();
 
         GameObject obj = GameObject.FindWithTag("Enemy");
         opponent = obj.transform;
@@ -76,55 +96,43 @@ public class Player1Control : MonoBehaviour
 
     void Update()
     {
-        //Aqui empieza el control del movimiento
-        stateInfo = playerAnimator.GetCurrentAnimatorStateInfo(0);
         movX = 0f;
 
-        /*GameObject obj = GameObject.FindWithTag("Enemigo");
-        opponent = obj.transform;*/
+        bool isPlayerOnLeft = transform.position.x < opponent.position.x;
+        transform.rotation = isPlayerOnLeft ? Quaternion.Euler(0f, 90f, 0f) : Quaternion.Euler(0f, -90f, 0f);
 
-        if (transform.position.x < opponent.position.x)
-        {
-            transform.rotation = Quaternion.Euler(0f, 90f, 0f);
-            forwardKey = KeyCode.D;
-            backKey = KeyCode.A;
-        }
-        if (transform.position.x > opponent.position.x)
-        {
-            transform.rotation = Quaternion.Euler(0f, -90f, 0f);
-            forwardKey = KeyCode.A;
-            backKey = KeyCode.D;
-        }
+        bool isForwardPressed = (isPlayerOnLeft && control.Player.Right.IsPressed()) ||
+                                (!isPlayerOnLeft && control.Player.Left.IsPressed());
 
-        bool isDown = Input.GetKey(KeyCode.S);
+        bool isBackPressed = (isPlayerOnLeft && control.Player.Left.IsPressed()) ||
+                            (!isPlayerOnLeft && control.Player.Right.IsPressed());
+
+        bool isDown = control.Player.Down.IsPressed();
         playerAnimator.SetBool("down", isDown);
 
-        isBlock = Input.GetKey(KeyCode.O);
+        isBlock = control.Player.Block.IsPressed();
         playerAnimator.SetBool("block", isBlock);
 
-        bool isRunning = Input.GetKey(KeyCode.LeftShift);
-        bool isWalking = Input.GetKey(forwardKey);
+        bool isRunning = control.Player.Run.IsPressed();
+        bool isWalking = isForwardPressed;
 
-        if (!Input.GetKey(forwardKey) && !Input.GetKey(backKey))
+        if (!isForwardPressed && !isBackPressed)
         {
             playerAnimator.SetBool("run", false);
             playerAnimator.SetBool("forward", false);
             speed = originalSpeed;
         }
 
-        if (!Input.GetKey(KeyCode.LeftShift) && Input.GetKey(forwardKey) && !isDown && !isBlock)
+        if (!isRunning && isForwardPressed && !isDown && !isBlock)
         {
             speed = originalSpeed;
-            //movX = 1;
-            //movX = transform.position.x < opponent.position.x ? 1f : -1f;
             movX = isHitting ? 0f : (transform.position.x < opponent.position.x ? 1f : -1f);
             playerAnimator.SetBool("forward", isWalking);
         }
 
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(forwardKey) && !isDown && !isBlock)
+        if (isRunning && isForwardPressed && !isDown && !isBlock)
         {
             speed = originalSpeed * 2.5f;
-            //movX = transform.position.x < opponent.position.x ? 1f : -1f;
             movX = isHitting ? 0f : (transform.position.x < opponent.position.x ? 1f : -1f);
             playerAnimator.SetBool("run", isRunning);
         }
@@ -133,47 +141,44 @@ public class Player1Control : MonoBehaviour
             playerAnimator.SetBool("run", false);
         }
 
-        bool isBack = Input.GetKey(backKey);
-        playerAnimator.SetBool("back", isBack);
-        if (Input.GetKey(backKey) && !isDown && !isBlock)
+        playerAnimator.SetBool("back", isBackPressed);
+        if (isBackPressed && !isDown && !isBlock)
         {
-            //smovX = transform.position.x < opponent.position.x ? -1f : 1f;
             movX = isHitting ? 0f : (transform.position.x < opponent.position.x ? -1f : 1f);
         }
 
         Vector3 movement = new Vector3(movX, 0f, 0f);
         rb.linearVelocity = new Vector3(movement.x * speed, rb.linearVelocity.y, 0f);
 
-        if (Input.GetKeyDown(KeyCode.W) && !isJumping && !isDown && !isBlock && !isSpecial)
+        if (control.Player.Up.triggered && !isJumping && !isDown && !isBlock && !isSpecial)
         {
             isJumping = true;
             playerAnimator.SetTrigger("jump");
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
 
-        if (Input.GetKeyDown(KeyCode.U) && !isGrabbing && !isJumping /*&& !isSpecial*/)
+        if (control.Player.Throw.triggered && !isGrabbing && !isJumping /*&& !isSpecial*/)
         {
             TryGrab();
         }
 
         //Aqui empieza el control del combate
         //Golpes en el suelo
-
-        if (Input.GetKeyDown(KeyCode.J) && !isJumping && !isSpecial)
+        if (control.Player.LowPunch.triggered && !isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("LowPunch");
             isHitting = true;
             StartCoroutine(delayedHit());
         }
 
-        if (Input.GetKeyDown(KeyCode.L) && !isJumping && !isSpecial)
+        if (control.Player.LowKick.triggered && !isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("LowKick");
             isHitting = true;
             StartCoroutine(delayedHit());
         }
 
-        if (Input.GetKeyDown(KeyCode.I) && !isJumping && !isSpecial)
+        if (control.Player.HardPunch.triggered && !isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("HardPunch");
             hitbox.AddExtraDamage(7.5f);
@@ -181,7 +186,7 @@ public class Player1Control : MonoBehaviour
             StartCoroutine(delayedHit());
         }
 
-        if (Input.GetKeyDown(KeyCode.K) && !isJumping && !isSpecial)
+        if (control.Player.HardKick.triggered && !isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("HardKick");
             hitbox.AddExtraDamage(7.5f);
@@ -190,35 +195,35 @@ public class Player1Control : MonoBehaviour
         }
 
         //Golpes en el aire
-        if (Input.GetKeyDown(KeyCode.J) && isJumping && !isSpecial)
+        if (control.Player.LowPunch.triggered && isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("JLP");
         }
 
-        if (Input.GetKeyDown(KeyCode.L) && isJumping && !isSpecial)
+        if (control.Player.LowKick.triggered && isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("JLK");
         }
 
-        if (Input.GetKeyDown(KeyCode.I) && isJumping && !isSpecial)
+        if (control.Player.HardPunch.triggered && isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("JHP");
         }
 
-        if (Input.GetKeyDown(KeyCode.K) && isJumping && !isSpecial)
+        if (control.Player.HardKick.triggered && isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("JHK");
         }
 
         //Golpes agachado
-        if ((Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.I)) && isDown)
+        if ((control.Player.LowPunch.triggered || control.Player.HardPunch.triggered) && isDown)
         {
             playerAnimator.SetTrigger("DownPunch");
             playerAnimator.ResetTrigger("LowPunch");
             playerAnimator.ResetTrigger("HardPunch");
         }
 
-        if ((Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.K)) && isDown)
+        if ((control.Player.LowKick.triggered || control.Player.HardKick.triggered) && isDown)
         {
             playerAnimator.SetTrigger("DownKick");
             playerAnimator.ResetTrigger("LowKick");
@@ -226,22 +231,29 @@ public class Player1Control : MonoBehaviour
         }
 
         //Aqui empiezan los especiales
-        if (Input.GetKeyDown(KeyCode.S))
+        if (control.Player.Down.triggered)
+        {
             AddInput("Down");
+            Debug.Log("Down");
+        }
 
-        if (Input.GetKeyDown(forwardKey))
+        if ((control.Player.Left.triggered && !isPlayerOnLeft) || (control.Player.Right.triggered && isPlayerOnLeft))
+        {
             AddInput("Forward");
+            Debug.Log("Forward");
+        }
 
-        if (Input.GetKeyDown(KeyCode.J))
+        if (control.Player.LowPunch.triggered)
         {
             AddInput("Attack");
+            Debug.Log("Attack");
             CheckHadouken();
             isSpecial = false;
         }
 
         //superspecial
 
-        if (Input.GetKeyDown(KeyCode.E) && !isJumping && isSuperSpecial)
+        if (control.Player.SuperSpecial.triggered && !isJumping && isSuperSpecial)
         {
             specialScript.EnableSuperSpecial();
             playerAnimator.SetTrigger("SuperSpecial");
@@ -252,7 +264,7 @@ public class Player1Control : MonoBehaviour
 
         //Las armas
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (control.Player.Pick.triggered)
         {
             if (arma.weaponInHand == null)
             {
@@ -266,8 +278,8 @@ public class Player1Control : MonoBehaviour
             }
         }
 
-        if ((Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.L)
-        || Input.GetKeyDown(KeyCode.I)) && isWeapon)
+        if ((control.Player.LowPunch.triggered || control.Player.HardPunch.triggered
+        || control.Player.LowKick.triggered || control.Player.HardKick.triggered) && isWeapon)
         {
             if (arma.isGun)
             {
@@ -281,11 +293,16 @@ public class Player1Control : MonoBehaviour
             }
         }
 
-        bool isWalkWeaponBack = Input.GetKey(backKey);
-        playerAnimator.SetBool("backWeapon", isWalkWeaponBack && isWeapon);
-        
-        bool isWalkWeaponForward = Input.GetKey(forwardKey);
-        playerAnimator.SetBool("forwardWeapon", isWalkWeaponForward && isWeapon);
+        //bool isWalkWeaponBack = Input.GetKey(backKey);
+        playerAnimator.SetBool("backWeapon", isBackPressed && isWeapon);
+
+        //bool isWalkWeaponForward = Input.GetKey(forwardKey);
+        playerAnimator.SetBool("forwardWeapon", isForwardPressed && isWeapon);
+
+        if (control.Player.Pause.triggered)
+        {
+            pausa.pause();
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

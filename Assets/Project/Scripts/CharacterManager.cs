@@ -3,7 +3,10 @@ using UnityEngine;
 public class CharacterManager : MonoBehaviour
 {
     public static CharacterManager Instance;
-    public GameObject selectedCharacter;
+    public GameObject selectedCharacterPlayer1;
+    public GameObject selectedCharacterPlayer2;
+
+    public GameMode currentMode;
 
     private void Awake()
     {
@@ -17,4 +20,11 @@ public class CharacterManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+}
+
+public enum GameMode
+{
+    Arcade,
+    VersusCPU,
+    VersusPvP
 }

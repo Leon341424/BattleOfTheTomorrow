@@ -18,6 +18,7 @@ public class PlayerHealth : MonoBehaviour
 
     private Player1Control playerControl;
     CapsuleCollider col;
+    private GameManager gameManager;
 
     void Start()
     {
@@ -29,6 +30,7 @@ public class PlayerHealth : MonoBehaviour
         healthBarFill = GameObject.FindWithTag("LifeBarP1").GetComponent<Image>();
         powerBarFill = GameObject.FindWithTag("PowerBarP1").GetComponent<Image>();
         col = GetComponent<CapsuleCollider>();
+        gameManager = FindFirstObjectByType<GameManager>();
     }
 
     void Update()
@@ -93,6 +95,7 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log($"{gameObject.name} died.");
         animator.SetTrigger("Die");
         col.direction = 2;
+        gameManager.PlayerWonRound(2);
         //colliderObject.enabled = false;
     }
 }

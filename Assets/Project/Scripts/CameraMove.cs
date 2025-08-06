@@ -19,6 +19,10 @@ public class CameraMove : MonoBehaviour
     {
         GameObject personaje1 = GameObject.FindWithTag("Player");
         GameObject personaje2 = GameObject.FindWithTag("Enemy");
+        if (personaje2 == null)
+        {
+            personaje2 = GameObject.FindWithTag("Player2");
+        }
 
         target1 = personaje1.transform;
         target2 = personaje2.transform;

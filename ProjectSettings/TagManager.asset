@@ -11,6 +11,7 @@ TagManager:
   - PowerBarP1
   - LifeBarP2
   - PowerBarP2
+  - Player2
   layers:
   - Default
   - TransparentFX

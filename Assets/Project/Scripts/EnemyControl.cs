@@ -37,12 +37,19 @@ public class EnemyControl : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezePositionZ;
-        GameObject obj = GameObject.FindWithTag("Player");
-        opponent = obj.transform;
+        /*GameObject obj = GameObject.FindWithTag("Player");
+        opponent = obj.transform;*/
+        Invoke("FindPlayer", 0.1f); 
         specialScript = GetComponentInChildren<SpecialEnemy>();
         arma = GetComponent<Weapon>();
         enemyHitbox = GetComponent<HitboxEnemy>();
         shooter = GetComponentInChildren<ShooterEnemy>();
+    }
+
+    void FindPlayer()
+    {
+        GameObject obj = GameObject.FindWithTag("Player");
+        opponent = obj.transform;
     }
 
     void Update()

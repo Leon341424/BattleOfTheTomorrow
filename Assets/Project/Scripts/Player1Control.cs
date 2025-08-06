@@ -91,6 +91,7 @@ public class Player1Control : MonoBehaviour
         pausa = FindFirstObjectByType<UIManager>();
 
         GameObject obj = GameObject.FindWithTag("Enemy");
+        if (obj == null) obj = GameObject.FindWithTag("Player");
         opponent = obj.transform;
     }
 

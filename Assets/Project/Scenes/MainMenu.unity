@@ -875,7 +875,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ff42a18d5bcca974faa3734e39e3bc16, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 08a7987f9293fc04789190cc3fbfd745, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3535,7 +3535,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ff42a18d5bcca974faa3734e39e3bc16, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 08a7987f9293fc04789190cc3fbfd745, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4259,6 +4259,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1221008806}
+        m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
+        m_MethodName: SelectCharacter1P1
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &328069570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4520,7 +4532,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 821132632}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: Arcade
+        m_MethodName: Versus
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4822,7 +4834,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 821132632}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: Arcade
+        m_MethodName: Versus
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4920,7 +4932,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f749cfe356d9e24c9729415f0c87ac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedCharacter: {fileID: 1221008805}
+  selectedCharacterPlayer1: {fileID: 0}
+  selectedCharacterPlayer2: {fileID: 0}
+  currentMode: 0
 --- !u!4 &356741015
 Transform:
   m_ObjectHideFlags: 0
@@ -5448,7 +5462,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &417005236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8190,8 +8204,20 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
-  m_IsOn: 1
+      m_Calls:
+      - m_Target: {fileID: 1221008806}
+        m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
+        m_MethodName: SetVersusMode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_IsOn: 0
 --- !u!1 &655733472
 GameObject:
   m_ObjectHideFlags: 0
@@ -8523,7 +8549,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ff42a18d5bcca974faa3734e39e3bc16, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6392646634a06dc4d9649f1dec142311, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9340,6 +9366,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 723679004}
   m_CullTransparentMesh: 1
+--- !u!1 &734121472
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 734121474}
+  - component: {fileID: 734121473}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &734121473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734121472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0311be1d40349e41b2c82e8d8091275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentMode: 0
+  arcadeScenes:
+  - combat
+  - combat
+  - combat
+  versusScene: combat
+--- !u!4 &734121474
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734121472}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.1030948, y: 3.4005797, z: 0.2564659}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &737458113
 GameObject:
   m_ObjectHideFlags: 0
@@ -10056,7 +10132,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ff42a18d5bcca974faa3734e39e3bc16, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 515cc3792b774e941b9900836766241b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10984,7 +11060,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ff42a18d5bcca974faa3734e39e3bc16, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 78a791a2b3019364284d3b14318582cf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12313,7 +12389,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 821132632}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: Arcade
+        m_MethodName: Versus
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13217,7 +13293,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1221008806}
         m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
-        m_MethodName: SelectCharacter
+        m_MethodName: SelectCharacter1P1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14745,6 +14821,18 @@ MonoBehaviour:
       - m_Target: {fileID: 821132632}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: characters
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1221008806}
+        m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
+        m_MethodName: SelectArcadeMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17275,7 +17363,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a70058ea938e5194583e1eff07e8a602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefab: {fileID: 7647483383543223694, guid: 4e4e00ae0c6a8f648b8d9ed26cf42f77, type: 3}
+  character1P1Prefab: {fileID: 7647483383543223694, guid: 4e4e00ae0c6a8f648b8d9ed26cf42f77, type: 3}
+  character1P2Prefab: {fileID: 1484171442229907218, guid: cdf96731b2d87584a85b75c09c884beb, type: 3}
+  versusToggle: {fileID: 645122621}
 --- !u!4 &1221008807
 Transform:
   m_ObjectHideFlags: 0
@@ -19124,7 +19214,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 821132632}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: Arcade
+        m_MethodName: Versus
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19463,7 +19553,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ff42a18d5bcca974faa3734e39e3bc16, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 616a0b85909055e43a8c0c913e46dde8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -19828,6 +19918,18 @@ MonoBehaviour:
       - m_Target: {fileID: 821132632}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: charactersVersus
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1221008806}
+        m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
+        m_MethodName: SelectVersusCPUMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21080,7 +21182,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ff42a18d5bcca974faa3734e39e3bc16, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6392646634a06dc4d9649f1dec142311, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -21640,7 +21742,19 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 821132632}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: Arcade
+        m_MethodName: Versus
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1221008806}
+        m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
+        m_MethodName: SelectCharacter1P2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21766,7 +21880,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ff42a18d5bcca974faa3734e39e3bc16, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 616a0b85909055e43a8c0c913e46dde8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -22289,7 +22403,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ff42a18d5bcca974faa3734e39e3bc16, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 515cc3792b774e941b9900836766241b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -23044,7 +23158,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ff42a18d5bcca974faa3734e39e3bc16, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6392646634a06dc4d9649f1dec142311, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -23127,7 +23241,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 821132632}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: Arcade
+        m_MethodName: Versus
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -23603,7 +23717,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ff42a18d5bcca974faa3734e39e3bc16, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 08a7987f9293fc04789190cc3fbfd745, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -24504,7 +24618,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 821132632}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: Arcade
+        m_MethodName: Versus
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -25514,7 +25628,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ff42a18d5bcca974faa3734e39e3bc16, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 78a791a2b3019364284d3b14318582cf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -25725,7 +25839,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ff42a18d5bcca974faa3734e39e3bc16, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 515cc3792b774e941b9900836766241b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -26073,7 +26187,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 821132632}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: Arcade
+        m_MethodName: Versus
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -26867,7 +26981,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ff42a18d5bcca974faa3734e39e3bc16, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 78a791a2b3019364284d3b14318582cf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -27410,7 +27524,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ff42a18d5bcca974faa3734e39e3bc16, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 616a0b85909055e43a8c0c913e46dde8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -28128,7 +28242,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 821132632}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: Arcade
+        m_MethodName: Versus
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -28212,3 +28326,4 @@ SceneRoots:
   - {fileID: 1041462633}
   - {fileID: 1221008807}
   - {fileID: 356741015}
+  - {fileID: 734121474}

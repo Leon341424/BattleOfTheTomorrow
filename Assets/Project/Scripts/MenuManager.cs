@@ -41,7 +41,7 @@ public class MenuManager : MonoBehaviour
 
     public void Arcade()
     {
-        SceneManager.LoadScene("combat");
+        GameManager.Instance.StartArcadeMode();
     }
 
     public void options()
@@ -90,10 +90,15 @@ public class MenuManager : MonoBehaviour
         charactersPanelVersusP1.SetActive(true);
         charactersPanelVersusP2.SetActive(false);
     }
-    
+
     public void charactersVersusP2()
     {
         charactersPanelVersusP1.SetActive(false);
         charactersPanelVersusP2.SetActive(true);
+    }
+
+    public void Versus()
+    {
+        GameManager.Instance.StartVersusMode();
     }
 }

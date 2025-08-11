@@ -39,7 +39,7 @@ public class EnemyControl : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezePositionZ;
         /*GameObject obj = GameObject.FindWithTag("Player");
         opponent = obj.transform;*/
-        Invoke("FindPlayer", 0.1f); 
+        Invoke("FindPlayer", 0.1f);
         specialScript = GetComponentInChildren<SpecialEnemy>();
         arma = GetComponent<Weapon>();
         enemyHitbox = GetComponent<HitboxEnemy>();
@@ -236,13 +236,12 @@ public class EnemyControl : MonoBehaviour
             Debug.Log("IA: agarre fallido");
         }
     }
-    
+
     IEnumerator ExecuteSuccessfulGrab()
     {
         yield return new WaitForSeconds(0.3f);
 
         float distanceToOpponent = Vector3.Distance(transform.position, opponent.position);
-        if (distanceToOpponent > 2.0f) yield break;
 
         isGrabbing = true;
         grabbedOpponent = opponent.gameObject;
@@ -260,15 +259,18 @@ public class EnemyControl : MonoBehaviour
             playerControl.enabled = false;
 
         animator.SetTrigger("GrabSuccess");
-
+        Debug.Log("Opponent: " + opponent.name);
         Animator enemyAnimator = opponent.GetComponent<Animator>();
         if (enemyAnimator != null)
+        {
             enemyAnimator.SetTrigger("grabbed");
+        }
 
-        EnemyHealth enemyHealth = grabbedOpponent.GetComponent<EnemyHealth>();
+        PlayerHealth enemyHealth = grabbedOpponent.GetComponent<PlayerHealth>();
         if (enemyHealth != null)
         {
-            enemyHealth.TakeDamageEnemy(20);
+            enemyHealth.EnableThrow();
+            enemyHealth.TakeDamagePlayer(20);
         }
 
         StartCoroutine(ReleaseGrab(1.2f));

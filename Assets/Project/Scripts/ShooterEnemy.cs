@@ -10,6 +10,11 @@ public class ShooterEnemy : MonoBehaviour
     private Transform opponent;
     void Start()
     {
+        Invoke("FindPlayer", 0.1f);
+    }
+
+    void FindPlayer()
+    {
         GameObject obj = GameObject.FindWithTag("Player");
         opponent = obj.transform;
     }

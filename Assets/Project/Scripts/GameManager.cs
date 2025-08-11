@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,9 @@ public class GameManager : MonoBehaviour
 
     public enum GameMode { Arcade, Versus }
     public GameMode currentMode;
+
+    private PlayerHealth player1Health;
+    private EnemyHealth player2Health;
 
     private int player1Wins = 0;
     private int player2Wins = 0;
@@ -29,6 +33,41 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void TimeOutRound()
+    {
+        //if (currentTime > 0) return;
+
+        GameObject player1Obj = GameObject.FindWithTag("Player");
+        player1Health = player1Obj.GetComponent<PlayerHealth>();
+
+        GameObject player2Obj = GameObject.FindWithTag("Enemy");
+        player1Health = player2Obj.GetComponent<PlayerHealth>();
+        
+        if (player1Health != null && player2Health != null)
+        {
+            if (player1Health.GetCurrentHealth() > player2Health.GetCurrentHealth())
+            {
+                PlayerWonRound(1);
+            }
+            else if (player2Health.GetCurrentHealth() > player1Health.GetCurrentHealth())
+            {
+                PlayerWonRound(2);
+            }
+            else
+            {
+                Debug.Log("Empate por tiempo");
+                RoundText.Instance.AdvanceRound();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Faltan referencias a PlayerHealth en GameManager.");
+        }
+
+        //currentTime = -1; 
     }
 
     public void ResetRoundWins()

@@ -10,10 +10,11 @@ public class ButtonSelector : MonoBehaviour
         StartCoroutine(SelectFirstActiveButton());
     }
 
-     private System.Collections.IEnumerator SelectFirstActiveButton()
+    private System.Collections.IEnumerator SelectFirstActiveButton()
     {
-        yield return null; 
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(firstButton); 
+        yield return null;
+        //EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstButton);
     }
+    
 }

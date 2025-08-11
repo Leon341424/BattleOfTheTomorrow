@@ -11,7 +11,7 @@ public class CharacterSpawn : MonoBehaviour
         var cm = CharacterManager.Instance;
 
         if (CharacterManager.Instance != null && CharacterManager.Instance.selectedCharacterPlayer1 != null
-        && cm.currentMode == GameMode.Arcade)
+        /*&& cm.currentMode == GameMode.Arcade*/)
         {
             Instantiate(CharacterManager.Instance.selectedCharacterPlayer1, spawnPoint.position, Quaternion.identity);
         }
@@ -29,25 +29,26 @@ public class CharacterSpawn : MonoBehaviour
 
         if (cm.currentMode == GameMode.VersusPvP)
         {
-            var player1 = PlayerInput.Instantiate(
+            /*var player1 = PlayerInput.Instantiate(
             cm.selectedCharacterPlayer1,
             controlScheme: "Keyboard&Mouse",
             pairWithDevice: Keyboard.current,
             playerIndex: 0
             );
             player1.transform.position = spawnPoint.position;
-            player1.transform.rotation = spawnPoint.rotation;
+            player1.transform.rotation = spawnPoint.rotation;*/
 
             if (cm.selectedCharacterPlayer2 != null)
             {
-                var player2 = PlayerInput.Instantiate(
+                Instantiate(CharacterManager.Instance.selectedCharacterPlayer2, spawnPointPlayer2.position, Quaternion.identity);
+                /*var player2 = PlayerInput.Instantiate(
                 cm.selectedCharacterPlayer2,
                 controlScheme: "Gamepad",
                 pairWithDevice: Gamepad.current,
                 playerIndex: 1
                 );
                 player2.transform.position = spawnPointPlayer2.position;
-                player2.transform.rotation = spawnPointPlayer2.rotation;
+                player2.transform.rotation = spawnPointPlayer2.rotation;*/
             }
             else
             {

@@ -58,13 +58,13 @@ public class Player2Control : MonoBehaviour
 
     public bool isBlock { get; private set; }
 
-    private InputSystem_Actions control;
+    private InputSystem_ActionsGamepad control;
 
     [SerializeField] private UIManager pausa;
 
     private void Awake()
     {
-        control = new InputSystem_Actions();
+        control = new InputSystem_ActionsGamepad();
     }
 
     private void OnEnable()
@@ -344,35 +344,38 @@ public class Player2Control : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
 
         float distanceToOpponent = Vector3.Distance(transform.position, opponent.position);
-        if (distanceToOpponent > 2.0f) yield break;
 
         isGrabbing = true;
         grabbedOpponent = opponent.gameObject;
 
         opponent.position = grabPoint.position;
         opponent.rotation = grabPoint.rotation;
-        opponent.SetParent(grabPoint);
+        opponent.transform.SetParent(grabPoint);
 
         if (opponent.GetComponent<Rigidbody>())
             opponent.GetComponent<Rigidbody>().isKinematic = true;
         rb.isKinematic = true;
 
-        var enemyControl = opponent.GetComponent<EnemyControl>();
-        if (enemyControl != null)
-            enemyControl.enabled = false;
+        var playerControl = opponent.GetComponent<EnemyControl>();
+        if (playerControl != null)
+            playerControl.enabled = false;
 
         playerAnimator.SetTrigger("GrabSuccess");
 
-        Animator enemyAnimator = opponent.GetComponent<Animator>();
+        Animator enemyAnimator = opponent.GetComponentInChildren<Animator>();
         if (enemyAnimator != null)
+        {
             enemyAnimator.SetTrigger("grabbed");
-
+            Debug.Log("Enemigo haciendo animacion");
+        }
+        
         EnemyHealth enemyHealth = grabbedOpponent.GetComponent<EnemyHealth>();
         if (enemyHealth != null)
         {
+            enemyHealth.EnableThrow();
             enemyHealth.TakeDamageEnemy(20);
-            Debug.Log("¡Agarre causó daño!");
         }
+
         StartCoroutine(ReleaseGrab(1.2f));
     }
 
@@ -387,10 +390,11 @@ public class Player2Control : MonoBehaviour
             if (grabbedOpponent.GetComponent<Rigidbody>())
                 grabbedOpponent.GetComponent<Rigidbody>().isKinematic = false;
 
-            var enemyControl = grabbedOpponent.GetComponent<EnemyControl>();
-            if (enemyControl != null)
-                enemyControl.enabled = true;
+            var playerControl = grabbedOpponent.GetComponent<EnemyControl>();
+            if (playerControl != null)
+                playerControl.enabled = true;             
         }
+
         rb.isKinematic = false;
         isGrabbing = false;
     }

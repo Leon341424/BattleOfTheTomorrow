@@ -12,6 +12,8 @@ TagManager:
   - LifeBarP2
   - PowerBarP2
   - Player2
+  - MusicSlider
+  - EffectSlider
   layers:
   - Default
   - TransparentFX

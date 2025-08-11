@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI; 
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -19,6 +19,7 @@ public class PlayerHealth : MonoBehaviour
     private Player1Control playerControl;
     CapsuleCollider col;
     private GameManager gameManager;
+    private bool isThrow = false;
 
     void Start()
     {
@@ -50,9 +51,10 @@ public class PlayerHealth : MonoBehaviour
             Debug.Log("¡Bloqueando! Daño reducido.");
         }
         currentHealth -= damage;
-        if (!playerControl.isBlock)
+        if (!playerControl.isBlock && !isThrow)
         {
             animator.SetTrigger("Damage");
+            AudioManager.Instance.PlayOneShot("Punch");
         }
         Debug.Log($"{gameObject.name} took {damage} damage. Remaining: {currentHealth}");
         UpdateHealthUIPlayer();
@@ -61,6 +63,8 @@ public class PlayerHealth : MonoBehaviour
         {
             Die();
         }
+
+        DisableThrow();
     }
 
     void UpdateHealthUIPlayer()
@@ -82,7 +86,7 @@ public class PlayerHealth : MonoBehaviour
     public void GainPower(float amount)
     {
         currentPower += amount;
-        currentPower = Mathf.Clamp(currentPower, 0, maxPower); 
+        currentPower = Mathf.Clamp(currentPower, 0, maxPower);
     }
 
     public void ResetPower()
@@ -96,6 +100,19 @@ public class PlayerHealth : MonoBehaviour
         animator.SetTrigger("Die");
         col.direction = 2;
         gameManager.PlayerWonRound(2);
-        //colliderObject.enabled = false;
+    }
+
+    public void EnableThrow()
+    {
+        isThrow = true;
+    }
+    public void DisableThrow()
+    {
+        isThrow = false;
+    }
+    
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
     }
 }

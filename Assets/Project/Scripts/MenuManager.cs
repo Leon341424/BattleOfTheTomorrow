@@ -37,6 +37,7 @@ public class MenuManager : MonoBehaviour
         creditsPanel.SetActive(false);
         charactersPanelVersus.SetActive(false);
         charactersPanel.SetActive(false);
+        AudioManager.Instance.Play("Menu");
     }
 
     public void Arcade()
@@ -81,6 +82,7 @@ public class MenuManager : MonoBehaviour
     {
         menuPanel.SetActive(false);
         charactersPanel.SetActive(true);
+        AudioManager.Instance.Play("Selection");
     }
 
     public void charactersVersus()
@@ -89,6 +91,7 @@ public class MenuManager : MonoBehaviour
         charactersPanelVersus.SetActive(true);
         charactersPanelVersusP1.SetActive(true);
         charactersPanelVersusP2.SetActive(false);
+        AudioManager.Instance.Play("Selection");
     }
 
     public void charactersVersusP2()

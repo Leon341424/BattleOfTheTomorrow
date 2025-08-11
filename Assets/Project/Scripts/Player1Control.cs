@@ -57,10 +57,25 @@ public class Player1Control : MonoBehaviour
     private Hitbox hitbox;
 
     public bool isBlock { get; private set; }
+    public bool isDown;
+    private bool isPlayerOnLeft;
+    private bool isForwardPressed;
+    private bool isBackPressed;
+    private bool isRunning;
+    private bool isWalking;
 
     private InputSystem_Actions control;
 
     [SerializeField] private UIManager pausa;
+
+    public PlayerControlMapping controlMapping;
+
+    private InputAction lowPunchAction;
+    private InputAction lowKickAction;
+    private InputAction hardPunchAction;
+    private InputAction hardKickAction;
+    private InputAction blockAction;
+    private InputAction throwAction;
 
     private void Awake()
     {
@@ -91,31 +106,33 @@ public class Player1Control : MonoBehaviour
         pausa = FindFirstObjectByType<UIManager>();
 
         GameObject obj = GameObject.FindWithTag("Enemy");
-        if (obj == null) obj = GameObject.FindWithTag("Player");
+        if (obj == null) obj = GameObject.FindWithTag("Player2");
         opponent = obj.transform;
+
+        ReloadMapping();
     }
 
     void Update()
     {
         movX = 0f;
 
-        bool isPlayerOnLeft = transform.position.x < opponent.position.x;
+        isPlayerOnLeft = transform.position.x < opponent.position.x;
         transform.rotation = isPlayerOnLeft ? Quaternion.Euler(0f, 90f, 0f) : Quaternion.Euler(0f, -90f, 0f);
 
-        bool isForwardPressed = (isPlayerOnLeft && control.Player.Right.IsPressed()) ||
+        isForwardPressed = (isPlayerOnLeft && control.Player.Right.IsPressed()) ||
                                 (!isPlayerOnLeft && control.Player.Left.IsPressed());
 
-        bool isBackPressed = (isPlayerOnLeft && control.Player.Left.IsPressed()) ||
+        isBackPressed = (isPlayerOnLeft && control.Player.Left.IsPressed()) ||
                             (!isPlayerOnLeft && control.Player.Right.IsPressed());
 
-        bool isDown = control.Player.Down.IsPressed();
+        isDown = control.Player.Down.IsPressed();
         playerAnimator.SetBool("down", isDown);
 
-        isBlock = control.Player.Block.IsPressed();
+        isBlock = blockAction.IsPressed();
         playerAnimator.SetBool("block", isBlock);
 
-        bool isRunning = control.Player.Run.IsPressed();
-        bool isWalking = isForwardPressed;
+        isRunning = control.Player.Run.IsPressed();
+        isWalking = isForwardPressed;
 
         if (!isForwardPressed && !isBackPressed)
         {
@@ -158,28 +175,28 @@ public class Player1Control : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
 
-        if (control.Player.Throw.triggered && !isGrabbing && !isJumping /*&& !isSpecial*/)
+        if (throwAction.triggered && !isGrabbing && !isJumping /*&& !isSpecial*/)
         {
             TryGrab();
         }
 
         //Aqui empieza el control del combate
         //Golpes en el suelo
-        if (control.Player.LowPunch.triggered && !isJumping && !isSpecial)
+        if (lowPunchAction.triggered && !isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("LowPunch");
             isHitting = true;
             StartCoroutine(delayedHit());
         }
 
-        if (control.Player.LowKick.triggered && !isJumping && !isSpecial)
+        if (lowKickAction.triggered && !isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("LowKick");
             isHitting = true;
             StartCoroutine(delayedHit());
         }
 
-        if (control.Player.HardPunch.triggered && !isJumping && !isSpecial)
+        if (hardPunchAction.triggered && !isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("HardPunch");
             hitbox.AddExtraDamage(7.5f);
@@ -187,7 +204,7 @@ public class Player1Control : MonoBehaviour
             StartCoroutine(delayedHit());
         }
 
-        if (control.Player.HardKick.triggered && !isJumping && !isSpecial)
+        if (hardKickAction.triggered && !isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("HardKick");
             hitbox.AddExtraDamage(7.5f);
@@ -196,35 +213,35 @@ public class Player1Control : MonoBehaviour
         }
 
         //Golpes en el aire
-        if (control.Player.LowPunch.triggered && isJumping && !isSpecial)
+        if (lowPunchAction.triggered && isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("JLP");
         }
 
-        if (control.Player.LowKick.triggered && isJumping && !isSpecial)
+        if (lowKickAction.triggered && isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("JLK");
         }
 
-        if (control.Player.HardPunch.triggered && isJumping && !isSpecial)
+        if (hardPunchAction.triggered && isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("JHP");
         }
 
-        if (control.Player.HardKick.triggered && isJumping && !isSpecial)
+        if (hardKickAction.triggered && isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("JHK");
         }
 
         //Golpes agachado
-        if ((control.Player.LowPunch.triggered || control.Player.HardPunch.triggered) && isDown)
+        if ((lowPunchAction.triggered || hardPunchAction.triggered) && isDown)
         {
             playerAnimator.SetTrigger("DownPunch");
             playerAnimator.ResetTrigger("LowPunch");
             playerAnimator.ResetTrigger("HardPunch");
         }
 
-        if ((control.Player.LowKick.triggered || control.Player.HardKick.triggered) && isDown)
+        if ((lowKickAction.triggered|| hardKickAction.triggered) && isDown)
         {
             playerAnimator.SetTrigger("DownKick");
             playerAnimator.ResetTrigger("LowKick");
@@ -244,7 +261,7 @@ public class Player1Control : MonoBehaviour
             Debug.Log("Forward");
         }
 
-        if (control.Player.LowPunch.triggered)
+        if (lowPunchAction.triggered)
         {
             AddInput("Attack");
             Debug.Log("Attack");
@@ -279,8 +296,8 @@ public class Player1Control : MonoBehaviour
             }
         }
 
-        if ((control.Player.LowPunch.triggered || control.Player.HardPunch.triggered
-        || control.Player.LowKick.triggered || control.Player.HardKick.triggered) && isWeapon)
+        if ((lowPunchAction.triggered || hardPunchAction.triggered || lowKickAction.triggered
+            || hardKickAction.triggered) && isWeapon)
         {
             if (arma.isGun)
             {
@@ -342,35 +359,38 @@ public class Player1Control : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
 
         float distanceToOpponent = Vector3.Distance(transform.position, opponent.position);
-        if (distanceToOpponent > 2.0f) yield break;
 
         isGrabbing = true;
         grabbedOpponent = opponent.gameObject;
 
         opponent.position = grabPoint.position;
         opponent.rotation = grabPoint.rotation;
-        opponent.SetParent(grabPoint);
+        opponent.transform.SetParent(grabPoint);
 
         if (opponent.GetComponent<Rigidbody>())
             opponent.GetComponent<Rigidbody>().isKinematic = true;
         rb.isKinematic = true;
 
-        var enemyControl = opponent.GetComponent<EnemyControl>();
-        if (enemyControl != null)
-            enemyControl.enabled = false;
+        var playerControl = opponent.GetComponent<EnemyControl>();
+        if (playerControl != null)
+            playerControl.enabled = false;
 
         playerAnimator.SetTrigger("GrabSuccess");
 
-        Animator enemyAnimator = opponent.GetComponent<Animator>();
+        Animator enemyAnimator = opponent.GetComponentInChildren<Animator>();
         if (enemyAnimator != null)
+        {
             enemyAnimator.SetTrigger("grabbed");
+            Debug.Log("Enemigo haciendo animacion");
+        }
 
         EnemyHealth enemyHealth = grabbedOpponent.GetComponent<EnemyHealth>();
         if (enemyHealth != null)
         {
+            enemyHealth.EnableThrow();
             enemyHealth.TakeDamageEnemy(20);
-            Debug.Log("¡Agarre causó daño!");
         }
+
         StartCoroutine(ReleaseGrab(1.2f));
     }
 
@@ -385,10 +405,11 @@ public class Player1Control : MonoBehaviour
             if (grabbedOpponent.GetComponent<Rigidbody>())
                 grabbedOpponent.GetComponent<Rigidbody>().isKinematic = false;
 
-            var enemyControl = grabbedOpponent.GetComponent<EnemyControl>();
-            if (enemyControl != null)
-                enemyControl.enabled = true;
+            var playerControl = grabbedOpponent.GetComponent<EnemyControl>();
+            if (playerControl != null)
+                playerControl.enabled = true;
         }
+
         rb.isKinematic = false;
         isGrabbing = false;
     }
@@ -445,6 +466,25 @@ public class Player1Control : MonoBehaviour
         {
             nearbyWeapon = null;
         }
+    }
+
+    public void ReloadMapping()
+    {
+        lowPunchAction = control.Player.GetType().GetProperty(controlMapping.lowPunch).GetValue(control.Player) as InputAction;
+        lowKickAction = control.Player.GetType().GetProperty(controlMapping.lowKick).GetValue(control.Player) as InputAction;
+        hardPunchAction = control.Player.GetType().GetProperty(controlMapping.hardPunch).GetValue(control.Player) as InputAction;
+        hardKickAction = control.Player.GetType().GetProperty(controlMapping.hardKick).GetValue(control.Player) as InputAction;
+        blockAction = control.Player.GetType().GetProperty(controlMapping.Block).GetValue(control.Player) as InputAction;
+        throwAction = control.Player.GetType().GetProperty(controlMapping.Throw).GetValue(control.Player) as InputAction;
+
+        lowPunchAction?.Enable();
+        lowKickAction?.Enable();
+        hardPunchAction?.Enable();
+        hardKickAction?.Enable();
+        blockAction?.Enable();
+        throwAction?.Enable();
+
+        control.Player.Enable();
     }
 
 }

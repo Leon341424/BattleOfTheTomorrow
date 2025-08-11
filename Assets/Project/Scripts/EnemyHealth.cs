@@ -19,6 +19,8 @@ public class EnemyHealth : MonoBehaviour
     CapsuleCollider col;
     private GameManager gameManager;
 
+    private bool isThrow = false;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -26,10 +28,17 @@ public class EnemyHealth : MonoBehaviour
         UpdateHealthUI();
         UpdatePowerUIPlayer();
         enemyControl = GetComponent<EnemyControl>();
-        healthBarFill = GameObject.FindWithTag("LifeBarP2").GetComponent<Image>();
-        powerBarFill = GameObject.FindWithTag("PowerBarP2").GetComponent<Image>();
+        Invoke("FindBars", 0.1f);
+        /*healthBarFill = GameObject.FindWithTag("LifeBarP2").GetComponent<Image>();
+        powerBarFill = GameObject.FindWithTag("PowerBarP2").GetComponent<Image>();*/
         col = GetComponent<CapsuleCollider>();
         gameManager = FindFirstObjectByType<GameManager>();
+    }
+
+    void FindBars()
+    {
+        healthBarFill = GameObject.FindWithTag("LifeBarP2").GetComponent<Image>();
+        powerBarFill = GameObject.FindWithTag("PowerBarP2").GetComponent<Image>();
     }
 
     void Update()
@@ -48,9 +57,10 @@ public class EnemyHealth : MonoBehaviour
             damage *= 0.1f;
         }
         currentHealth -= damage;
-        if (!enemyControl.isBlock)
+        if (!enemyControl.isBlock && !isThrow)
         {
             animator.SetTrigger("Damage");
+            AudioManager.Instance.PlayOneShot("Punch");
         }
         Debug.Log($"{gameObject.name} took {damage} damage. Remaining: {currentHealth}");
         UpdateHealthUI();
@@ -59,6 +69,8 @@ public class EnemyHealth : MonoBehaviour
         {
             DieEnemy();
         }
+
+        DisableThrow();
     }
 
     void UpdateHealthUI()
@@ -103,5 +115,19 @@ public class EnemyHealth : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         GetComponent<EnemyControl>().enabled = false;
+    }
+
+    public void EnableThrow()
+    {
+        isThrow = true;
+    }
+    public void DisableThrow()
+    {
+        isThrow = false;
+    }
+
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
     }
 }

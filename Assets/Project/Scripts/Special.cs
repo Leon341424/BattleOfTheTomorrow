@@ -31,12 +31,14 @@ public class Special : MonoBehaviour
         if (specialActive)
         {
             StartCoroutine(DelaySpecial(0.75f));
+            AudioManager.Instance.PlayOneShot("special");
             DisableSpecial();
         }
 
         if (superSpecialActive)
         {
             StartCoroutine(DelaySuperSpecial(1.25f));
+            AudioManager.Instance.PlayOneShot("SuperSpecial");
             DisableSuperSpecial();
         }
     }

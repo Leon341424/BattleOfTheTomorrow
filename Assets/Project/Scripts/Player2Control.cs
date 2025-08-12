@@ -16,7 +16,7 @@ public class Player2Control : MonoBehaviour
             this.time = time;
         }
     }
-    private Special specialScript;
+    private SpecialEnemy specialScript;
 
     private Animator playerAnimator;
     private AnimatorStateInfo stateInfo;
@@ -45,7 +45,7 @@ public class Player2Control : MonoBehaviour
     private GameObject grabbedOpponent;
 
     private bool isSuperSpecial;
-    private PlayerHealth playerHealth;
+    private EnemyHealth playerHealth;
 
     private Weapon arma;
 
@@ -53,10 +53,16 @@ public class Player2Control : MonoBehaviour
 
     private bool isWeapon = false;
 
-    private Shooter shooter;
-    private Hitbox hitbox;
+    private ShooterEnemy shooter;
+    private HitboxEnemy hitbox;
 
     public bool isBlock { get; private set; }
+    public bool isDown;
+    private bool isPlayerOnLeft;
+    private bool isForwardPressed;
+    private bool isBackPressed;
+    private bool isRunning;
+    private bool isWalking;
 
     private InputSystem_ActionsGamepad control;
 
@@ -84,40 +90,48 @@ public class Player2Control : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         originalSpeed = speed;
         rb.constraints = RigidbodyConstraints.FreezePositionZ;
-        specialScript = GetComponentInChildren<Special>();
-        playerHealth = GetComponent<PlayerHealth>();
+        specialScript = GetComponentInChildren<SpecialEnemy>();
+        playerHealth = GetComponent<EnemyHealth>();
         arma = GetComponent<Weapon>();
-        shooter = GetComponentInChildren<Shooter>();
-        hitbox = GetComponent<Hitbox>();
+        shooter = GetComponentInChildren<ShooterEnemy>();
+        hitbox = GetComponent<HitboxEnemy>();
         pausa = FindFirstObjectByType<UIManager>();
 
-        GameObject obj = GameObject.FindWithTag("Enemy");
-        if (obj == null) obj = GameObject.FindWithTag("Player");
-        opponent = obj.transform;
+        Invoke("FindPlayer", 0.1f);
+        /*GameObject obj = GameObject.FindWithTag("Enemy");
+        if (obj == null) 
+        GameObject obj = GameObject.FindWithTag("Player");
+        opponent = obj.transform;*/
 
+    }
+
+    void FindPlayer()
+    {
+        GameObject obj = GameObject.FindWithTag("Player");
+        opponent = obj.transform;
     }
 
     void Update()
     {
         movX = 0f;
 
-        bool isPlayerOnLeft = transform.position.x < opponent.position.x;
+        isPlayerOnLeft = transform.position.x < opponent.position.x;
         transform.rotation = isPlayerOnLeft ? Quaternion.Euler(0f, 90f, 0f) : Quaternion.Euler(0f, -90f, 0f);
 
-        bool isForwardPressed = (isPlayerOnLeft && control.Player.Right.IsPressed()) ||
+        isForwardPressed = (isPlayerOnLeft && control.Player.Right.IsPressed()) ||
                                 (!isPlayerOnLeft && control.Player.Left.IsPressed());
 
-        bool isBackPressed = (isPlayerOnLeft && control.Player.Left.IsPressed()) ||
+        isBackPressed = (isPlayerOnLeft && control.Player.Left.IsPressed()) ||
                             (!isPlayerOnLeft && control.Player.Right.IsPressed());
 
-        bool isDown = control.Player.Down.IsPressed();
+        isDown = control.Player.Down.IsPressed();
         playerAnimator.SetBool("down", isDown);
 
         isBlock = control.Player.Block.IsPressed();
         playerAnimator.SetBool("block", isBlock);
 
-        bool isRunning = control.Player.Run.IsPressed();
-        bool isWalking = isForwardPressed;
+        isRunning = control.Player.Run.IsPressed();
+        isWalking = isForwardPressed;
 
         if (!isForwardPressed && !isBackPressed)
         {
@@ -148,6 +162,7 @@ public class Player2Control : MonoBehaviour
         if (isBackPressed && !isDown && !isBlock)
         {
             movX = isHitting ? 0f : (transform.position.x < opponent.position.x ? -1f : 1f);
+            Debug.Log(movX);
         }
 
         Vector3 movement = new Vector3(movX, 0f, 0f);
@@ -356,7 +371,7 @@ public class Player2Control : MonoBehaviour
             opponent.GetComponent<Rigidbody>().isKinematic = true;
         rb.isKinematic = true;
 
-        var playerControl = opponent.GetComponent<EnemyControl>();
+        var playerControl = opponent.GetComponent<Player1Control>();
         if (playerControl != null)
             playerControl.enabled = false;
 
@@ -369,11 +384,11 @@ public class Player2Control : MonoBehaviour
             Debug.Log("Enemigo haciendo animacion");
         }
         
-        EnemyHealth enemyHealth = grabbedOpponent.GetComponent<EnemyHealth>();
+        PlayerHealth enemyHealth = grabbedOpponent.GetComponent<PlayerHealth>();
         if (enemyHealth != null)
         {
             enemyHealth.EnableThrow();
-            enemyHealth.TakeDamageEnemy(20);
+            enemyHealth.TakeDamagePlayer(20);
         }
 
         StartCoroutine(ReleaseGrab(1.2f));
@@ -390,7 +405,7 @@ public class Player2Control : MonoBehaviour
             if (grabbedOpponent.GetComponent<Rigidbody>())
                 grabbedOpponent.GetComponent<Rigidbody>().isKinematic = false;
 
-            var playerControl = grabbedOpponent.GetComponent<EnemyControl>();
+            var playerControl = grabbedOpponent.GetComponent<Player1Control>();
             if (playerControl != null)
                 playerControl.enabled = true;             
         }

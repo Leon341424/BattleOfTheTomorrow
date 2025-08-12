@@ -16,6 +16,7 @@ public class EnemyHealth : MonoBehaviour
 
     private Collider colliderObject;
     private EnemyControl enemyControl;
+    private Player2Control enemyControl1;
     CapsuleCollider col;
     private GameManager gameManager;
 
@@ -28,6 +29,7 @@ public class EnemyHealth : MonoBehaviour
         UpdateHealthUI();
         UpdatePowerUIPlayer();
         enemyControl = GetComponent<EnemyControl>();
+        enemyControl1 = GetComponent<Player2Control>();
         Invoke("FindBars", 0.1f);
         /*healthBarFill = GameObject.FindWithTag("LifeBarP2").GetComponent<Image>();
         powerBarFill = GameObject.FindWithTag("PowerBarP2").GetComponent<Image>();*/
@@ -46,18 +48,29 @@ public class EnemyHealth : MonoBehaviour
         UpdatePowerUIPlayer();
         if (currentPower >= 100f)
         {
-            enemyControl.EnableSuper();
+            if (enemyControl != null)
+            {
+                enemyControl.EnableSuper();
+            }
+            else
+            {
+                enemyControl1.EnableSuper();
+            }
         }
     }
 
     public void TakeDamageEnemy(float damage)
     {
-        if (enemyControl.isBlock)
+        if ((enemyControl != null && enemyControl.isBlock) || (enemyControl1 != null && enemyControl1.isBlock))
         {
             damage *= 0.1f;
         }
         currentHealth -= damage;
-        if (!enemyControl.isBlock && !isThrow)
+        
+        bool enemyBlock = enemyControl != null && enemyControl.isBlock;
+        bool enemy1Block = enemyControl1 != null && enemyControl1.isBlock;
+
+        if ((!enemyBlock || !enemy1Block) && !isThrow)
         {
             animator.SetTrigger("Damage");
             AudioManager.Instance.PlayOneShot("Punch");
@@ -106,15 +119,10 @@ public class EnemyHealth : MonoBehaviour
         animator.SetTrigger("Die");
         col.direction = 2;
         GetComponent<EnemyControl>().enabled = false;
+        GetComponent<Player2Control>().enabled = false;
         gameManager.PlayerWonRound(1);
         //StartCoroutine(OffControl());
         //SceneManager.LoadScene("combat");
-    }
-
-    IEnumerator OffControl()
-    {
-        yield return new WaitForSeconds(0.2f);
-        GetComponent<EnemyControl>().enabled = false;
     }
 
     public void EnableThrow()

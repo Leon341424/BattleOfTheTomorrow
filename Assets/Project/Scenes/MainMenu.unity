@@ -2758,6 +2758,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1221008806}
+        m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
+        m_MethodName: SelectCharacter8P1
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &209365581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4321,7 +4333,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1221008806}
         m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
-        m_MethodName: SelectCharacter1P1
+        m_MethodName: SelectCharacter1P1Keyboard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9280,6 +9292,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1221008806}
+        m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
+        m_MethodName: SelectCharacter3P1
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &717918531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11980,6 +12004,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1221008806}
+        m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
+        m_MethodName: SelectCharacter4P1
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &866770796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14534,6 +14570,18 @@ MonoBehaviour:
       - m_Target: {fileID: 821132632}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: Arcade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1221008806}
+        m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
+        m_MethodName: SelectCharacter5P1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17611,8 +17659,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a70058ea938e5194583e1eff07e8a602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character1P1Prefab: {fileID: 7647483383543223694, guid: 4e4e00ae0c6a8f648b8d9ed26cf42f77, type: 3}
-  character1P2Prefab: {fileID: 1484171442229907218, guid: cdf96731b2d87584a85b75c09c884beb, type: 3}
+  character1P1Prefab: {fileID: 3703703344001037390, guid: 417022c68d4176044a22bbcc52d50ce6, type: 3}
+  character2P1Prefab: {fileID: 6505513948083850294, guid: 7ebae51c933f45e408ed7496f25bf697, type: 3}
+  character3P1Prefab: {fileID: 7710408270456665645, guid: 33d01fca0f15a4d4f9cd190c2caf4f11, type: 3}
+  character4P1Prefab: {fileID: 6954440639874696015, guid: e5ed3b46e768800488e32ae5f006909b, type: 3}
+  character5P1Prefab: {fileID: 8038648160737790822, guid: 342ca76ab44322345980e33a27033d87, type: 3}
+  character6P1Prefab: {fileID: 5774807237469640520, guid: e0bc9902aff598a4cba9f0b2cb2b3db5, type: 3}
+  character7P1Prefab: {fileID: 4875402257754382188, guid: a0133d57d367f8747bd1ed235f48841a, type: 3}
+  character8P1Prefab: {fileID: 7593882287259851887, guid: d15c24f3033d79e4b9e72c752d0bff59, type: 3}
+  character1P2Prefab: {fileID: 6500174118621745974, guid: bad02f6c53dbd33448ee3bdfa31422bd, type: 3}
+  character1P1PrefabKeyboard: {fileID: 3945646457601400251, guid: b4e4c3fa808b61243a59ee45aaa1b7d8, type: 3}
   versusToggle: {fileID: 645122621}
 --- !u!4 &1221008807
 Transform:
@@ -20312,6 +20368,18 @@ MonoBehaviour:
       - m_Target: {fileID: 821132632}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: Arcade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1221008806}
+        m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
+        m_MethodName: SelectCharacter2P1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -24324,6 +24392,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1221008806}
+        m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
+        m_MethodName: SelectCharacter7P1
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1762990584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25897,6 +25977,18 @@ MonoBehaviour:
       - m_Target: {fileID: 821132632}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: Arcade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1221008806}
+        m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
+        m_MethodName: SelectCharacter6P1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

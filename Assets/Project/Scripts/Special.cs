@@ -4,6 +4,7 @@ using UnityEngine;
 public class Special : MonoBehaviour
 {
     public GameObject SpecialPrefab;
+    public GameObject SpecialPrefab2;
     public GameObject SuperSpecialPrefab;
     public float SpecialForce;
 
@@ -12,6 +13,7 @@ public class Special : MonoBehaviour
     private GameObject tmpSuperSpecial;
 
     private bool specialActive;
+    private bool specialActive2;
 
     private bool superSpecialActive;
     private Transform opponent;
@@ -35,6 +37,13 @@ public class Special : MonoBehaviour
             DisableSpecial();
         }
 
+        if (specialActive2)
+        {
+            StartCoroutine(DelaySpecial2(0.75f));
+            AudioManager.Instance.PlayOneShot("special");
+            DisableSpecial2();
+        }
+
         if (superSpecialActive)
         {
             StartCoroutine(DelaySuperSpecial(1.25f));
@@ -51,6 +60,15 @@ public class Special : MonoBehaviour
     public void DisableSpecial()
     {
         specialActive = false;
+    }
+    public void EnableSpecial2()
+    {
+        specialActive2 = true;
+    }
+
+    public void DisableSpecial2()
+    {
+        specialActive2 = false;
     }
 
     public void EnableSuperSpecial()
@@ -72,6 +90,15 @@ public class Special : MonoBehaviour
         Destroy(tmpSpecial, 4f);
     }
 
+    private void Fire2()
+    {
+        GameObject tmpSpecial = Instantiate(SpecialPrefab2, transform.position, Quaternion.identity);
+        Vector3 direction = (opponent.position.x > transform.position.x) ? Vector3.right : Vector3.left;
+        tmpSpecial.transform.right = direction;
+        tmpSpecial.GetComponent<Rigidbody>().AddForce(direction * SpecialForce, ForceMode.Impulse);
+        Destroy(tmpSpecial, 4f);
+    }
+
     private void FireSuper()
     {
         GameObject tmpSuperSpecial = Instantiate(SuperSpecialPrefab, transform.position + new Vector3(33.5f, 2f, 0f),
@@ -85,6 +112,12 @@ public class Special : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         Fire();
+    }
+
+    private IEnumerator DelaySpecial2(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Fire2();
     }
 
     private IEnumerator DelaySuperSpecial(float time)

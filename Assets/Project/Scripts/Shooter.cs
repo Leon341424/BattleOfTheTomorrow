@@ -11,6 +11,7 @@ public class Shooter : MonoBehaviour
     void Start()
     {
         GameObject obj = GameObject.FindWithTag("Enemy");
+        if (obj == null) obj = GameObject.FindWithTag("Player2");
         opponent = obj.transform;
     }
     void Update()

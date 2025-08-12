@@ -57,7 +57,7 @@ public class Player1Control : MonoBehaviour
     private Hitbox hitbox;
 
     public bool isBlock { get; private set; }
-    public bool isDown;
+    private bool isDown;
     private bool isPlayerOnLeft;
     private bool isForwardPressed;
     private bool isBackPressed;
@@ -252,19 +252,35 @@ public class Player1Control : MonoBehaviour
         if (control.Player.Down.triggered)
         {
             AddInput("Down");
-            Debug.Log("Down");
         }
 
         if ((control.Player.Left.triggered && !isPlayerOnLeft) || (control.Player.Right.triggered && isPlayerOnLeft))
         {
             AddInput("Forward");
-            Debug.Log("Forward");
         }
 
         if (lowPunchAction.triggered)
         {
             AddInput("Attack");
-            Debug.Log("Attack");
+            CheckHadouken();
+            isSpecial = false;
+        }
+
+        if ((control.Player.Right.triggered && !isPlayerOnLeft) || (control.Player.Left.triggered && isPlayerOnLeft))
+        {
+            AddInput("Back");
+        }
+
+        if (lowKickAction.triggered)
+        {
+            AddInput("Attack1");
+            CheckHadouken();
+            isSpecial = false;
+        }
+
+        if (hardPunchAction.triggered)
+        {
+            AddInput("Attack2");
             CheckHadouken();
             isSpecial = false;
         }
@@ -429,10 +445,31 @@ public class Player1Control : MonoBehaviour
             inputHistory[count - 2].input == "Forward" &&
             inputHistory[count - 1].input == "Attack")
         {
-            Debug.Log("Especial ejecutado!");
+            //Debug.Log("Especial ejecutado!");
             isSpecial = true;
             playerAnimator.SetTrigger("special");
             specialScript.EnableSpecial();
+            inputHistory.Clear();
+            return;
+        }
+        else if (inputHistory[count - 3].input == "Down" &&
+            inputHistory[count - 2].input == "Back" &&
+            inputHistory[count - 1].input == "Attack1")
+        {
+            isSpecial = true;
+            Debug.Log("Especial 2 ejecutado!");
+            playerAnimator.SetTrigger("special2");
+            specialScript.EnableSpecial2();
+            inputHistory.Clear();
+            return;
+        }
+        else if (inputHistory[count - 3].input == "Forward" &&
+            inputHistory[count - 2].input == "Down" &&
+            inputHistory[count - 1].input == "Attack2")
+        {
+            isSpecial = true;
+            playerAnimator.SetTrigger("special3");
+            //specialScript.EnableSpecial();
             inputHistory.Clear();
             return;
         }

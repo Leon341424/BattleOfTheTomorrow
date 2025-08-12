@@ -17,7 +17,8 @@ public class Hitbox : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (canDamage && other.CompareTag("Enemy") && !alreadyHit.Contains(other.gameObject))
+        if (canDamage && other.CompareTag("Enemy")
+            && !alreadyHit.Contains(other.gameObject))
         {
             EnemyHealth targetHealth = other.GetComponent<EnemyHealth>();
             targetHealth.TakeDamageEnemy(currentDamage);
@@ -32,13 +33,13 @@ public class Hitbox : MonoBehaviour
     {
         canDamage = true;
         alreadyHit.Clear();
-        //Debug.Log("daño activado");
+        Debug.Log("daño activado");
     }
 
     public void DisableDamage()
     {
         canDamage = false;
-        //Debug.Log("daño desactivado");
+        Debug.Log("daño desactivado");
     }
 
     /*private IEnumerator DamageWindow(float time)

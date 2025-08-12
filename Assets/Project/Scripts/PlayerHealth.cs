@@ -17,6 +17,7 @@ public class PlayerHealth : MonoBehaviour
     private Image powerBarFill;
 
     private Player1Control playerControl;
+    private Player1ControlKeyboard playerControl1;
     CapsuleCollider col;
     private GameManager gameManager;
     private bool isThrow = false;
@@ -28,6 +29,7 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthUIPlayer();
         UpdatePowerUIPlayer();
         playerControl = GetComponent<Player1Control>();
+        playerControl1 = GetComponent<Player1ControlKeyboard>();
         healthBarFill = GameObject.FindWithTag("LifeBarP1").GetComponent<Image>();
         powerBarFill = GameObject.FindWithTag("PowerBarP1").GetComponent<Image>();
         col = GetComponent<CapsuleCollider>();
@@ -39,23 +41,36 @@ public class PlayerHealth : MonoBehaviour
         UpdatePowerUIPlayer();
         if (currentPower >= 100f)
         {
-            playerControl.EnableSuper();
+            if (playerControl != null)
+            {
+                playerControl.EnableSuper();
+            }
+            else
+            {
+                playerControl1.EnableSuper();
+            }
         }
     }
 
     public void TakeDamagePlayer(float damage)
     {
-        if (playerControl.isBlock)
+        bool playerBlock = playerControl != null && playerControl.isBlock;
+        bool player1Block = playerControl1 != null && playerControl1.isBlock;
+
+        if (playerBlock || player1Block)
         {
             damage *= 0.1f;
             Debug.Log("¡Bloqueando! Daño reducido.");
         }
+
         currentHealth -= damage;
-        if (!playerControl.isBlock && !isThrow)
+
+        if (!(playerBlock || player1Block) && !isThrow)
         {
             animator.SetTrigger("Damage");
             AudioManager.Instance.PlayOneShot("Punch");
         }
+        
         Debug.Log($"{gameObject.name} took {damage} damage. Remaining: {currentHealth}");
         UpdateHealthUIPlayer();
 

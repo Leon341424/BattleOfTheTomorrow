@@ -118,11 +118,12 @@ public class EnemyHealth : MonoBehaviour
         Debug.Log($"{gameObject.name} died.");
         animator.SetTrigger("Die");
         col.direction = 2;
-        GetComponent<EnemyControl>().enabled = false;
-        GetComponent<Player2Control>().enabled = false;
+        EnemyControl ec = GetComponent<EnemyControl>();
+        if (ec != null) ec.enabled = false;
+
+        Player2Control p2c = GetComponent<Player2Control>();
+        if (p2c != null) p2c.enabled = false;
         gameManager.PlayerWonRound(1);
-        //StartCoroutine(OffControl());
-        //SceneManager.LoadScene("combat");
     }
 
     public void EnableThrow()

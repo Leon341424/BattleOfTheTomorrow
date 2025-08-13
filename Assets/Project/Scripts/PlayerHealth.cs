@@ -114,6 +114,11 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log($"{gameObject.name} died.");
         animator.SetTrigger("Die");
         col.direction = 2;
+        Player1Control ec = GetComponent<Player1Control>();
+        if (ec != null) ec.enabled = false;
+
+        Player1ControlKeyboard p2c = GetComponent<Player1ControlKeyboard>();
+        if (p2c != null) p2c.enabled = false;
         gameManager.PlayerWonRound(2);
     }
 

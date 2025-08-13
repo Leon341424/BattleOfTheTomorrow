@@ -5,6 +5,7 @@ public class CharacterManager : MonoBehaviour
     public static CharacterManager Instance;
     public GameObject selectedCharacterPlayer1;
     public GameObject selectedCharacterPlayer2;
+    public GameObject selectedCharacterEnemy;
 
     public GameMode currentMode;
 

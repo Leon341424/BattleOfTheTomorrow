@@ -21,6 +21,15 @@ public class GameManager : MonoBehaviour
     public string versusScene;
 
     private UIManager WinOrLose;
+    
+    public GameObject character1EnemyPrefab;
+    public GameObject character2EnemyPrefab;
+    public GameObject character3EnemyPrefab;
+    public GameObject character4EnemyPrefab;
+    public GameObject character5EnemyPrefab;
+    public GameObject character6EnemyPrefab;
+    public GameObject character7EnemyPrefab;
+    public GameObject character8EnemyPrefab;
 
     void Awake()
     {
@@ -44,7 +53,7 @@ public class GameManager : MonoBehaviour
 
         GameObject player2Obj = GameObject.FindWithTag("Enemy");
         player1Health = player2Obj.GetComponent<PlayerHealth>();
-        
+
         if (player1Health != null && player2Health != null)
         {
             if (player1Health.GetCurrentHealth() > player2Health.GetCurrentHealth())
@@ -85,22 +94,26 @@ public class GameManager : MonoBehaviour
 
         if (player1Wins == 2)
         {
-            if(currentMode == GameMode.Arcade) WinOrLose.Win();
+            if (currentMode == GameMode.Arcade)
+            {
+                WinOrLose.Win();
+                SelectRandomCharacterEnemy();
+            }
             if (currentMode == GameMode.Versus)
             {
-                WinOrLose.Versus(); 
-                WinOrLose.versusWinnerText.text = "Player 1 Wins!";  
-            } 
+                WinOrLose.Versus();
+                WinOrLose.versusWinnerText.text = "Player 1 Wins!";
+            }
             RoundText.Instance.ResetRounds();
         }
         else if (player2Wins == 2)
         {
-            if(currentMode == GameMode.Arcade) WinOrLose.Lose();
+            if (currentMode == GameMode.Arcade) WinOrLose.Lose();
             if (currentMode == GameMode.Versus)
             {
                 WinOrLose.Versus();
-                WinOrLose.versusWinnerText.text = "Player 2 Wins!";           
-            }  
+                WinOrLose.versusWinnerText.text = "Player 2 Wins!";
+            }
             RoundText.Instance.ResetRounds();
         }
         else
@@ -143,6 +156,7 @@ public class GameManager : MonoBehaviour
         currentMode = GameMode.Arcade;
         currentStageIndex = 0;
         ResetRoundWins();
+        SelectRandomCharacterEnemy();
         SceneManager.LoadScene(arcadeScenes[0]);
     }
 
@@ -151,5 +165,23 @@ public class GameManager : MonoBehaviour
         currentMode = GameMode.Versus;
         ResetRoundWins();
         SceneManager.LoadScene(versusScene);
+    }
+    
+    public void SelectRandomCharacterEnemy()
+    {
+        GameObject[] enemies = new GameObject[]
+        {
+            character1EnemyPrefab,
+            character2EnemyPrefab,
+            character3EnemyPrefab,
+            character4EnemyPrefab,
+            character5EnemyPrefab,
+            character6EnemyPrefab,
+            character7EnemyPrefab,
+            character8EnemyPrefab
+        };
+
+        int randomIndex = Random.Range(0, enemies.Length);
+        CharacterManager.Instance.selectedCharacterEnemy = enemies[randomIndex];
     }
 }

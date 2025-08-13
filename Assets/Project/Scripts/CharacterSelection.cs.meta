@@ -1,2 +1,44 @@
 fileFormatVersion: 2
 guid: a70058ea938e5194583e1eff07e8a602
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - character1P1Prefab: {instanceID: 0}
+  - character2P1Prefab: {fileID: 6505513948083850294, guid: 7ebae51c933f45e408ed7496f25bf697, type: 3}
+  - character3P1Prefab: {fileID: 7710408270456665645, guid: 33d01fca0f15a4d4f9cd190c2caf4f11, type: 3}
+  - character4P1Prefab: {fileID: 6954440639874696015, guid: e5ed3b46e768800488e32ae5f006909b, type: 3}
+  - character5P1Prefab: {fileID: 8038648160737790822, guid: 342ca76ab44322345980e33a27033d87, type: 3}
+  - character6P1Prefab: {fileID: 5774807237469640520, guid: e0bc9902aff598a4cba9f0b2cb2b3db5, type: 3}
+  - character7P1Prefab: {fileID: 4875402257754382188, guid: a0133d57d367f8747bd1ed235f48841a, type: 3}
+  - character8P1Prefab: {fileID: 7593882287259851887, guid: d15c24f3033d79e4b9e72c752d0bff59, type: 3}
+  - character1P2Prefab: {fileID: 6500174118621745974, guid: bad02f6c53dbd33448ee3bdfa31422bd, type: 3}
+  - character2P2Prefab: {fileID: 3532138827314222876, guid: fb2bc2d817c36a2479eda95c389e097d, type: 3}
+  - character3P2Prefab: {fileID: 4960885256212591453, guid: e933654a474ae3d47b2fe6829d54fe39, type: 3}
+  - character4P2Prefab: {fileID: 763507416472751675, guid: c6af2fcbc2a43604badb5731ab0b916f, type: 3}
+  - character5P2Prefab: {fileID: 9166046132284822095, guid: 76dc10cd96156d04e9701062e3480f5d, type: 3}
+  - character6P2Prefab: {fileID: 2988613544217873474, guid: 8b088decb66d34940bd19563fc0ce0d0, type: 3}
+  - character7P2Prefab: {fileID: 8457415068696706563, guid: cb45fb2f0be77b84a92b66ecd5d9798f, type: 3}
+  - character8P2Prefab: {fileID: 1136684332903292018, guid: a9d0d8eca0216c64cbaf1ad88c55745d, type: 3}
+  - character1P1PrefabKeyboard: {fileID: 3945646457601400251, guid: b4e4c3fa808b61243a59ee45aaa1b7d8, type: 3}
+  - character2P1PrefabKeyboard: {fileID: 7787037606479387454, guid: 2b049e63ebb09cf47ab6e04ecd77f5a0, type: 3}
+  - character3P1PrefabKeyboard: {fileID: 6422175088965686402, guid: 2386de2ab3c780740abee9a3ba6ebe6e, type: 3}
+  - character4P1PrefabKeyboard: {fileID: 5834932622987578216, guid: a35069f7f54a7a648adf2efa586838d1, type: 3}
+  - character5P1PrefabKeyboard: {fileID: 3612087020930861775, guid: 2c0ac3a2a8f4e624d8eaf1f984b8a077, type: 3}
+  - character6P1PrefabKeyboard: {fileID: 5142190478590589243, guid: 616183ae435dfcc499d6c822469c35c5, type: 3}
+  - character7P1PrefabKeyboard: {fileID: 8504088674584931012, guid: 203e146223f73214a9c726d124627e0e, type: 3}
+  - character8P1PrefabKeyboard: {fileID: 4854239355213446639, guid: a87315cd73ac5f8468f09ce70207213f, type: 3}
+  - character1EnemyPrefab: {fileID: 2333735490305619871, guid: f181d6ad9a39133438db66ad179fa50e, type: 3}
+  - character2EnemyPrefab: {fileID: 7855711719949068635, guid: 7452dcc2a74b63e469c351b4555986a1, type: 3}
+  - character3EnemyPrefab: {fileID: 7166755408688900978, guid: bf648ed8ee151ca4995ccbb5144f48ba, type: 3}
+  - character4EnemyPrefab: {fileID: 9149143618177416002, guid: 3ba766728a17b6f4eb27e6cf8b7b194c, type: 3}
+  - character5EnemyPrefab: {fileID: 4704640344445191465, guid: af24e9a28c0168e44904fe31c7821731, type: 3}
+  - character6EnemyPrefab: {fileID: 7074768241584396001, guid: d97f986bd00a15745903925aca951d9c, type: 3}
+  - character7EnemyPrefab: {fileID: 3791804155762616856, guid: bfcf5a7b54097fc4c8903df0219597e5, type: 3}
+  - character8EnemyPrefab: {fileID: 7116682726290896991, guid: a0b8f574dc1fba946a17bf53399aab7d, type: 3}
+  - versusToggle: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -31,6 +31,19 @@ public class GameManager : MonoBehaviour
     public GameObject character7EnemyPrefab;
     public GameObject character8EnemyPrefab;
 
+    public Sprite ImageCharacter1;
+    public Sprite ImageCharacter2;
+    public Sprite ImageCharacter3;
+    public Sprite ImageCharacter4;
+    public Sprite ImageCharacter5;
+    public Sprite ImageCharacter6;
+    public Sprite ImageCharacter7;
+    public Sprite ImageCharacter8;
+
+    public GameObject finalBossPrefab;
+    public Sprite finalBossImage;
+
+
     void Awake()
     {
         if (Instance == null)
@@ -46,13 +59,12 @@ public class GameManager : MonoBehaviour
 
     public void TimeOutRound()
     {
-        //if (currentTime > 0) return;
 
         GameObject player1Obj = GameObject.FindWithTag("Player");
         player1Health = player1Obj.GetComponent<PlayerHealth>();
 
         GameObject player2Obj = GameObject.FindWithTag("Enemy");
-        player1Health = player2Obj.GetComponent<PlayerHealth>();
+        player2Health = player2Obj.GetComponent<EnemyHealth>();
 
         if (player1Health != null && player2Health != null)
         {
@@ -67,16 +79,13 @@ public class GameManager : MonoBehaviour
             else
             {
                 Debug.Log("Empate por tiempo");
-                RoundText.Instance.AdvanceRound();
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                PlayerWonRound(1);
             }
         }
         else
         {
             Debug.LogWarning("Faltan referencias a PlayerHealth en GameManager.");
         }
-
-        //currentTime = -1; 
     }
 
     public void ResetRoundWins()
@@ -139,10 +148,10 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (currentMode == GameMode.Versus)
+        /*if (currentMode == GameMode.Versus)
         {
             SceneManager.LoadScene("MainMenu");
-        }
+        }*/
     }
 
     public void ResetMatch()
@@ -164,11 +173,22 @@ public class GameManager : MonoBehaviour
     {
         currentMode = GameMode.Versus;
         ResetRoundWins();
+        /*if (arcadeScenes.Count > 0)
+        {
+            int randomIndex = Random.Range(0, arcadeScenes.Count);
+            SceneManager.LoadScene(arcadeScenes[randomIndex]);
+        }*/
         SceneManager.LoadScene(versusScene);
     }
     
     public void SelectRandomCharacterEnemy()
     {
+        if (currentStageIndex == arcadeScenes.Count - 1)
+        {
+            CharacterManager.Instance.selectedCharacterEnemy = finalBossPrefab;
+            CharacterManager.Instance.hudImagePlayer2 = finalBossImage;
+            return;
+        }
         GameObject[] enemies = new GameObject[]
         {
             character1EnemyPrefab,
@@ -180,8 +200,20 @@ public class GameManager : MonoBehaviour
             character7EnemyPrefab,
             character8EnemyPrefab
         };
+        Sprite[] imagesP2 = new Sprite[]
+        {
+            ImageCharacter1,
+            ImageCharacter2,
+            ImageCharacter3,
+            ImageCharacter4,
+            ImageCharacter5,
+            ImageCharacter6,
+            ImageCharacter7,
+            ImageCharacter8
+        };
 
         int randomIndex = Random.Range(0, enemies.Length);
         CharacterManager.Instance.selectedCharacterEnemy = enemies[randomIndex];
+        CharacterManager.Instance.hudImagePlayer2 = imagesP2[randomIndex];
     }
 }

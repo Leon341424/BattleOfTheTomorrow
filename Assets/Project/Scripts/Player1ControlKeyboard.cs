@@ -215,11 +215,13 @@ public class Player1ControlKeyboard : MonoBehaviour
         if (control.Player.HardPunch.triggered && isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("JHP");
+            hitbox.AddExtraDamage(7.5f);
         }
 
         if (control.Player.HardKick.triggered && isJumping && !isSpecial)
         {
             playerAnimator.SetTrigger("JHK");
+            hitbox.AddExtraDamage(7.5f);
         }
 
         //Golpes agachado
@@ -277,11 +279,13 @@ public class Player1ControlKeyboard : MonoBehaviour
             {
                 arma.TryPickup();
                 isWeapon = true;
+                hitbox.weaponActive();
             }
             else
             {
                 arma.TryDrop();
                 isWeapon = false;
+                hitbox.weaponDesactive();
             }
         }
 
@@ -296,7 +300,7 @@ public class Player1ControlKeyboard : MonoBehaviour
             if (!arma.isGun)
             {
                 playerAnimator.SetTrigger("WeaponAttack");
-                hitbox.AddExtraDamage(15f);
+                hitbox.AddExtraDamage(40f);
             }
         }
 
@@ -335,6 +339,7 @@ public class Player1ControlKeyboard : MonoBehaviour
         if (distanceToOpponent < 2.5f)
         {
             StartCoroutine(ExecuteSuccessfulGrab());
+            playerHealth.GainPower(10f);
             Debug.Log("agarre exitoso");
         }
         else

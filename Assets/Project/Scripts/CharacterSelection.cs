@@ -38,147 +38,188 @@ public class CharacterSelection : MonoBehaviour
     public GameObject character8EnemyPrefab;
     public Toggle versusToggle;
 
+    public Sprite ImageCharacter1;
+    public Sprite ImageCharacter2;
+    public Sprite ImageCharacter3;
+    public Sprite ImageCharacter4;
+    public Sprite ImageCharacter5;
+    public Sprite ImageCharacter6;
+    public Sprite ImageCharacter7;
+    public Sprite ImageCharacter8;
+
     //Jugador 1 ambos controles
     public void SelectCharacter1P1()
     {
         CharacterManager.Instance.selectedCharacterPlayer1 = character1P1Prefab;
+        CharacterManager.Instance.hudImagePlayer1 = ImageCharacter1;
     }
 
     public void SelectCharacter2P1()
     {
         CharacterManager.Instance.selectedCharacterPlayer1 = character2P1Prefab;
+        CharacterManager.Instance.hudImagePlayer1 = ImageCharacter2;
     }
 
     public void SelectCharacter3P1()
     {
         CharacterManager.Instance.selectedCharacterPlayer1 = character3P1Prefab;
+        CharacterManager.Instance.hudImagePlayer1 = ImageCharacter3;
     }
 
     public void SelectCharacter4P1()
     {
         CharacterManager.Instance.selectedCharacterPlayer1 = character4P1Prefab;
+        CharacterManager.Instance.hudImagePlayer1 = ImageCharacter4;
     }
 
     public void SelectCharacter5P1()
     {
         CharacterManager.Instance.selectedCharacterPlayer1 = character5P1Prefab;
+        CharacterManager.Instance.hudImagePlayer1 = ImageCharacter5;
     }
 
     public void SelectCharacter6P1()
     {
         CharacterManager.Instance.selectedCharacterPlayer1 = character6P1Prefab;
+        CharacterManager.Instance.hudImagePlayer1 = ImageCharacter6;
     }
 
     public void SelectCharacter7P1()
     {
         CharacterManager.Instance.selectedCharacterPlayer1 = character7P1Prefab;
+        CharacterManager.Instance.hudImagePlayer1 = ImageCharacter7;
     }
 
     public void SelectCharacter8P1()
     {
         CharacterManager.Instance.selectedCharacterPlayer1 = character8P1Prefab;
+        CharacterManager.Instance.hudImagePlayer1 = ImageCharacter8;
     }
 
     //Jugador 2 solo control
     public void SelectCharacter1P2()
     {
         CharacterManager.Instance.selectedCharacterPlayer2 = character1P2Prefab;
+        CharacterManager.Instance.hudImagePlayer2 = ImageCharacter1;
     }
     public void SelectCharacter2P2()
     {
         CharacterManager.Instance.selectedCharacterPlayer2 = character2P2Prefab;
+        CharacterManager.Instance.hudImagePlayer2 = ImageCharacter2;
     }
     public void SelectCharacter3P2()
     {
         CharacterManager.Instance.selectedCharacterPlayer2 = character3P2Prefab;
+        CharacterManager.Instance.hudImagePlayer2 = ImageCharacter3;
     }
     public void SelectCharacter4P2()
     {
         CharacterManager.Instance.selectedCharacterPlayer2 = character4P2Prefab;
+        CharacterManager.Instance.hudImagePlayer2 = ImageCharacter4;
     }
     public void SelectCharacter5P2()
     {
         CharacterManager.Instance.selectedCharacterPlayer2 = character5P2Prefab;
+        CharacterManager.Instance.hudImagePlayer2 = ImageCharacter5;
     }
     public void SelectCharacter6P2()
     {
         CharacterManager.Instance.selectedCharacterPlayer2 = character6P2Prefab;
+        CharacterManager.Instance.hudImagePlayer2 = ImageCharacter6;
     }
     public void SelectCharacter7P2()
     {
         CharacterManager.Instance.selectedCharacterPlayer2 = character7P2Prefab;
+        CharacterManager.Instance.hudImagePlayer2 = ImageCharacter7;
     }
     public void SelectCharacter8P2()
     {
         CharacterManager.Instance.selectedCharacterPlayer2 = character8P2Prefab;
+        CharacterManager.Instance.hudImagePlayer2 = ImageCharacter8;
     }
 
     //Jugador 1 solo teclado
     public void SelectCharacter1P1Keyboard()
     {
         CharacterManager.Instance.selectedCharacterPlayer1 = character1P1PrefabKeyboard;
+        CharacterManager.Instance.hudImagePlayer1 = ImageCharacter1;
     }
     public void SelectCharacter2P1Keyboard()
     {
         CharacterManager.Instance.selectedCharacterPlayer1 = character2P1PrefabKeyboard;
+        CharacterManager.Instance.hudImagePlayer1 = ImageCharacter2;
     }
     public void SelectCharacter3P1Keyboard()
     {
         CharacterManager.Instance.selectedCharacterPlayer1 = character3P1PrefabKeyboard;
+        CharacterManager.Instance.hudImagePlayer1 = ImageCharacter3;
     }
     public void SelectCharacter4P1Keyboard()
     {
         CharacterManager.Instance.selectedCharacterPlayer1 = character4P1PrefabKeyboard;
+        CharacterManager.Instance.hudImagePlayer1 = ImageCharacter4;
     }
     public void SelectCharacter5P1Keyboard()
     {
         CharacterManager.Instance.selectedCharacterPlayer1 = character5P1PrefabKeyboard;
+        CharacterManager.Instance.hudImagePlayer1 = ImageCharacter5;
     }
     public void SelectCharacter6P1Keyboard()
     {
         CharacterManager.Instance.selectedCharacterPlayer1 = character6P1PrefabKeyboard;
+        CharacterManager.Instance.hudImagePlayer1 = ImageCharacter6;
     }
     public void SelectCharacter7P1Keyboard()
     {
         CharacterManager.Instance.selectedCharacterPlayer1 = character7P1PrefabKeyboard;
+        CharacterManager.Instance.hudImagePlayer1 = ImageCharacter7;
     }
     public void SelectCharacter8P1Keyboard()
     {
         CharacterManager.Instance.selectedCharacterPlayer1 = character8P1PrefabKeyboard;
+        CharacterManager.Instance.hudImagePlayer1 = ImageCharacter8;
     }
 
     //Enemigo IA
     public void SelectCharacter1Enemy()
     {
         CharacterManager.Instance.selectedCharacterEnemy = character1EnemyPrefab;
+        CharacterManager.Instance.hudImagePlayer2 = ImageCharacter1;
     }
     public void SelectCharacter2Enemy()
     {
         CharacterManager.Instance.selectedCharacterEnemy = character2EnemyPrefab;
+        CharacterManager.Instance.hudImagePlayer2 = ImageCharacter2;
     }
     public void SelectCharacter3Enemy()
     {
         CharacterManager.Instance.selectedCharacterEnemy = character3EnemyPrefab;
+        CharacterManager.Instance.hudImagePlayer2 = ImageCharacter3;
     }
     public void SelectCharacter4Enemy()
     {
         CharacterManager.Instance.selectedCharacterEnemy = character4EnemyPrefab;
+        CharacterManager.Instance.hudImagePlayer2 = ImageCharacter4;
     }
     public void SelectCharacter5Enemy()
     {
         CharacterManager.Instance.selectedCharacterEnemy = character5EnemyPrefab;
+        CharacterManager.Instance.hudImagePlayer2 = ImageCharacter5;
     }
     public void SelectCharacter6Enemy()
     {
         CharacterManager.Instance.selectedCharacterEnemy = character6EnemyPrefab;
+        CharacterManager.Instance.hudImagePlayer2 = ImageCharacter6;
     }
     public void SelectCharacter7Enemy()
     {
         CharacterManager.Instance.selectedCharacterEnemy = character7EnemyPrefab;
+        CharacterManager.Instance.hudImagePlayer2 = ImageCharacter7;
     }
     public void SelectCharacter8Enemy()
     {
         CharacterManager.Instance.selectedCharacterEnemy = character8EnemyPrefab;
+        CharacterManager.Instance.hudImagePlayer2 = ImageCharacter8;
     }
 
     //Randoms
@@ -197,8 +238,20 @@ public class CharacterSelection : MonoBehaviour
             character8P1Prefab
         };
 
+        Sprite[] imagesP1 = new Sprite[]
+        {
+            ImageCharacter1,
+            ImageCharacter2,
+            ImageCharacter3,
+            ImageCharacter4,
+            ImageCharacter5,
+            ImageCharacter6,
+            ImageCharacter7,
+            ImageCharacter8
+        };
         int randomIndex = Random.Range(0, charactersP1.Length);
         CharacterManager.Instance.selectedCharacterPlayer1 = charactersP1[randomIndex];
+        CharacterManager.Instance.hudImagePlayer1 = imagesP1[randomIndex];
     }
 
     //Jugador 2
@@ -215,9 +268,21 @@ public class CharacterSelection : MonoBehaviour
             character7P2Prefab,
             character8P2Prefab
         };
+        Sprite[] imagesP2 = new Sprite[]
+        {
+            ImageCharacter1,
+            ImageCharacter2,
+            ImageCharacter3,
+            ImageCharacter4,
+            ImageCharacter5,
+            ImageCharacter6,
+            ImageCharacter7,
+            ImageCharacter8
+        };
 
         int randomIndex = Random.Range(0, charactersP2.Length);
         CharacterManager.Instance.selectedCharacterPlayer2 = charactersP2[randomIndex];
+        CharacterManager.Instance.hudImagePlayer2 = imagesP2[randomIndex];
     }
 
     //jugador 1 teclado
@@ -234,9 +299,21 @@ public class CharacterSelection : MonoBehaviour
             character7P1PrefabKeyboard,
             character8P1PrefabKeyboard
         };
+        Sprite[] imagesP1 = new Sprite[]
+        {
+            ImageCharacter1,
+            ImageCharacter2,
+            ImageCharacter3,
+            ImageCharacter4,
+            ImageCharacter5,
+            ImageCharacter6,
+            ImageCharacter7,
+            ImageCharacter8
+        };
 
         int randomIndex = Random.Range(0, charactersP1Keyboard.Length);
         CharacterManager.Instance.selectedCharacterPlayer1 = charactersP1Keyboard[randomIndex];
+        CharacterManager.Instance.hudImagePlayer1 = imagesP1[randomIndex];
     }
 
     //Enemigos
@@ -253,9 +330,21 @@ public class CharacterSelection : MonoBehaviour
             character7EnemyPrefab,
             character8EnemyPrefab
         };
+        Sprite[] imagesP2 = new Sprite[]
+        {
+            ImageCharacter1,
+            ImageCharacter2,
+            ImageCharacter3,
+            ImageCharacter4,
+            ImageCharacter5,
+            ImageCharacter6,
+            ImageCharacter7,
+            ImageCharacter8
+        };
 
         int randomIndex = Random.Range(0, enemies.Length);
         CharacterManager.Instance.selectedCharacterEnemy = enemies[randomIndex];
+        CharacterManager.Instance.hudImagePlayer2 = imagesP2[randomIndex];
     }
 
     //Seleccionar modo de juego

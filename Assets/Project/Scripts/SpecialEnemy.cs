@@ -74,9 +74,11 @@ public class SpecialEnemy : MonoBehaviour
 
     private void FireSuper()
     {
-        GameObject tmpSuperSpecial = Instantiate(SuperSpecialPrefab, transform.position + new Vector3(33.5f, 2f, 0f),
+        Vector3 localOffset = new Vector3(0f, 2f, 20f); 
+        Vector3 worldOffset = transform.TransformPoint(localOffset);
+        GameObject tmpSuperSpecial = Instantiate(SuperSpecialPrefab, worldOffset,
         Quaternion.identity);
-        Vector3 direction = (opponent.position.x < transform.position.x) ? Vector3.right : Vector3.left;
+        Vector3 direction = (opponent.position.x > transform.position.x) ? Vector3.right : Vector3.left;
         tmpSuperSpecial.transform.right = direction;
         Destroy(tmpSuperSpecial, 1.75f);
     }

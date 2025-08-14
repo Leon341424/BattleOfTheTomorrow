@@ -9,6 +9,7 @@ public class HitboxEnemy : MonoBehaviour
     private bool canDamage = false;
     private HashSet<GameObject> alreadyHit = new HashSet<GameObject>();
     private EnemyHealth enemyPower;
+    private bool weapon;
 
     void Start()
     {
@@ -22,12 +23,27 @@ public class HitboxEnemy : MonoBehaviour
             PlayerHealth targetHealth = other.GetComponent<PlayerHealth>();
             targetHealth.TakeDamagePlayer(currentDamage);
             alreadyHit.Add(other.gameObject);
-            enemyPower.GainPower(10f);
+            if (weapon)
+            {
+                enemyPower.GainPower(1f);
+            }
+            else
+            {
+                enemyPower.GainPower(10f);
+            }
             DisableDamage();
             currentDamage = damage;
         }
     }
+    public void weaponActive()
+    {
+        weapon = true;
+    }
 
+    public void weaponDesactive()
+    {
+        weapon = false;
+    }
     public void EnableDamage()
     {
         canDamage = true;

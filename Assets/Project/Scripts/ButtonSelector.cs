@@ -20,17 +20,16 @@ public class ButtonSelector : MonoBehaviour
 
     void Update()
     {
-        // Detecta si el jugador mueve el mouse
-        if (Input.mousePresent && (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0))
+        /*if (Input.mousePresent && (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0))
         {
             if (!usingMouse)
             {
                 usingMouse = true;
                 EventSystem.current.SetSelectedGameObject(null); 
             }
-        }
+        }*/
 
-        else if (Input.anyKeyDown && !Input.GetMouseButtonDown(0))
+        if (Input.anyKeyDown && !Input.GetMouseButtonDown(0))
         {
             usingMouse = false;
             if (EventSystem.current.currentSelectedGameObject == null)
@@ -39,5 +38,5 @@ public class ButtonSelector : MonoBehaviour
             }
         }
     }
-    
+
 }

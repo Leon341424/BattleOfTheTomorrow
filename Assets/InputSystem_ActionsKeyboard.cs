@@ -354,7 +354,7 @@ public partial class @InputSystem_ActionsKeyboard: IInputActionCollection2, IDis
                 {
                     ""name"": """",
                     ""id"": ""0592273a-6c6a-44f4-9d5d-a89bf43df79f"",
-                    ""path"": ""<Keyboard>/enter"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",

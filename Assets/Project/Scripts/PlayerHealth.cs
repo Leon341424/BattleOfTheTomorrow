@@ -60,7 +60,7 @@ public class PlayerHealth : MonoBehaviour
         if (playerBlock || player1Block)
         {
             damage *= 0.1f;
-            Debug.Log("¡Bloqueando! Daño reducido.");
+            GainPower(2f);
         }
 
         currentHealth -= damage;

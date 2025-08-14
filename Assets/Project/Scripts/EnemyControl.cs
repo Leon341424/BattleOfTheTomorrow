@@ -130,6 +130,7 @@ public class EnemyControl : MonoBehaviour
         {
             arma.TryPickup();
             isWeapon = true;
+            enemyHitbox.weaponActive();
             return;
         }
 
@@ -137,6 +138,7 @@ public class EnemyControl : MonoBehaviour
         {
             arma.TryDrop();
             isWeapon = false;
+            enemyHitbox.weaponDesactive();
             return;
         }
     }
@@ -229,6 +231,7 @@ public class EnemyControl : MonoBehaviour
         if (distanceToOpponent < 2.5f)
         {
             StartCoroutine(ExecuteSuccessfulGrab());
+            enemyHealth.GainPower(10f);
             Debug.Log("IA: agarre exitoso");
         }
         else

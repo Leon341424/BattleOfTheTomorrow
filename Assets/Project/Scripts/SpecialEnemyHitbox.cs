@@ -3,6 +3,11 @@ using UnityEngine;
 public class SpecialEnemyHitbox : MonoBehaviour
 {
     public float damage;
+    private EnemyHealth enemyPower;
+    void Start()
+    {
+        enemyPower = GetComponent<EnemyHealth>();
+    }
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -11,6 +16,7 @@ public class SpecialEnemyHitbox : MonoBehaviour
             if (targetHealth != null)
             {
                 targetHealth.TakeDamagePlayer(damage);
+                enemyPower.GainPower(8f);
                 Destroy(this.gameObject);
             }
         }

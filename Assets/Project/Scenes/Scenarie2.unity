@@ -1351,6 +1351,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 62325298}
   m_CullTransparentMesh: 1
+--- !u!1 &72098235
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 72098237}
+  - component: {fileID: 72098236}
+  m_Layer: 0
+  m_Name: SpawnWeapons (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &72098236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72098235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 871d03102cc07b644a3e67277043b58f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapons:
+  - {fileID: 4024634080164180908, guid: 5dc0ae4cf3442774eb9cb018cd4312b6, type: 3}
+  - {fileID: 5369320054920665333, guid: 333ad83c6d6192b49b70965aea169486, type: 3}
+  - {fileID: 590984833004443933, guid: 4168f50d6b544444ca95f30bc2d4beeb, type: 3}
+  - {fileID: 6276507473290253399, guid: 5bc2d32975880154ab5ed0ea31bddef2, type: 3}
+  - {fileID: 1052981326700817076, guid: c5ad1160f0365044eb7255ba78c761c4, type: 3}
+  - {fileID: 8411254881461447024, guid: a531670b73aa1b94a8383ecfa0e3f6c0, type: 3}
+  spawnDelay: 90
+  weaponLifetime: 30
+--- !u!4 &72098237
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72098235}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &94433169
 GameObject:
   m_ObjectHideFlags: 0
@@ -4625,6 +4678,59 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 60}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!1 &494378458
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 494378460}
+  - component: {fileID: 494378459}
+  m_Layer: 0
+  m_Name: SpawnWeapons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &494378459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494378458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 871d03102cc07b644a3e67277043b58f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapons:
+  - {fileID: 4024634080164180908, guid: 5dc0ae4cf3442774eb9cb018cd4312b6, type: 3}
+  - {fileID: 5369320054920665333, guid: 333ad83c6d6192b49b70965aea169486, type: 3}
+  - {fileID: 590984833004443933, guid: 4168f50d6b544444ca95f30bc2d4beeb, type: 3}
+  - {fileID: 6276507473290253399, guid: 5bc2d32975880154ab5ed0ea31bddef2, type: 3}
+  - {fileID: 1052981326700817076, guid: c5ad1160f0365044eb7255ba78c761c4, type: 3}
+  - {fileID: 8411254881461447024, guid: a531670b73aa1b94a8383ecfa0e3f6c0, type: 3}
+  spawnDelay: 45
+  weaponLifetime: 30
+--- !u!4 &494378460
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494378458}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 17.5, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &512983124
 GameObject:
   m_ObjectHideFlags: 0
@@ -9316,6 +9422,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1101223403}
   m_CullTransparentMesh: 1
+--- !u!1 &1106682018
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1106682020}
+  - component: {fileID: 1106682019}
+  m_Layer: 0
+  m_Name: SpawnWeapons (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1106682019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106682018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 871d03102cc07b644a3e67277043b58f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapons:
+  - {fileID: 4024634080164180908, guid: 5dc0ae4cf3442774eb9cb018cd4312b6, type: 3}
+  - {fileID: 5369320054920665333, guid: 333ad83c6d6192b49b70965aea169486, type: 3}
+  - {fileID: 590984833004443933, guid: 4168f50d6b544444ca95f30bc2d4beeb, type: 3}
+  - {fileID: 6276507473290253399, guid: 5bc2d32975880154ab5ed0ea31bddef2, type: 3}
+  - {fileID: 1052981326700817076, guid: c5ad1160f0365044eb7255ba78c761c4, type: 3}
+  - {fileID: 8411254881461447024, guid: a531670b73aa1b94a8383ecfa0e3f6c0, type: 3}
+  spawnDelay: 25
+  weaponLifetime: 30
+--- !u!4 &1106682020
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106682018}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -17.5, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1115878346
 GameObject:
   m_ObjectHideFlags: 0
@@ -19837,6 +19996,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1858071819}
   spawnPointPlayer2: {fileID: 1719430486}
+  ImagePlayer1: {fileID: 124551364}
+  ImagePlayer2: {fileID: 1277920175}
 --- !u!4 &2052285835
 Transform:
   m_ObjectHideFlags: 0
@@ -20583,6 +20744,9 @@ SceneRoots:
   - {fileID: 15539873}
   - {fileID: 2052285835}
   - {fileID: 1968438218}
+  - {fileID: 494378460}
+  - {fileID: 72098237}
+  - {fileID: 1106682020}
   - {fileID: 18940182}
   - {fileID: 1536409407}
   - {fileID: 98323782}

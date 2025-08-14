@@ -9658,7 +9658,7 @@ MonoBehaviour:
   VersusFinalPanel: {fileID: 513281926}
   roundTextObject: {fileID: 646493696}
   versusWinnerText: {fileID: 1838057008}
-  roundTime: 120
+  roundTime: 20
   timerText: {fileID: 1581730023}
 --- !u!4 &1087963426
 Transform:
@@ -20930,6 +20930,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1858071819}
   spawnPointPlayer2: {fileID: 1719430486}
+  ImagePlayer1: {fileID: 124551364}
+  ImagePlayer2: {fileID: 1277920175}
 --- !u!4 &2052285835
 Transform:
   m_ObjectHideFlags: 0

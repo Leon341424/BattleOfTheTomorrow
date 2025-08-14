@@ -64,6 +64,7 @@ public class EnemyHealth : MonoBehaviour
         if ((enemyControl != null && enemyControl.isBlock) || (enemyControl1 != null && enemyControl1.isBlock))
         {
             damage *= 0.1f;
+            GainPower(2f);
         }
         currentHealth -= damage;
         

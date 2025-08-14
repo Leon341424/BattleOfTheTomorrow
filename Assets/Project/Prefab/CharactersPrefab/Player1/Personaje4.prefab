@@ -380,7 +380,6 @@ MonoBehaviour:
   jumpForce: 9.8
   inputBufferTime: 0.8
   grabPoint: {fileID: 7416786146138781483}
-  isDown: 0
   pausa: {fileID: 0}
   controlMapping: {fileID: 11400000, guid: a3b950534e6fb5644a6197e5373bc400, type: 2}
 --- !u!136 &6072833075336835792
@@ -475,7 +474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a2a6b36713b7e34ea8b317fcf706c3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 20
 --- !u!1 &7033484987200582159 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 998038177336429585, guid: ff666e739cbb7924a8a9d993ba0772a9, type: 3}

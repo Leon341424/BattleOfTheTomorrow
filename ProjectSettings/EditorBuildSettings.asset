@@ -14,6 +14,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Project/Scenes/Scenarie1.unity
     guid: 03c0f2448dcb21d44b41d88a2472f82c
+  - enabled: 1
+    path: Assets/Project/Scenes/Scenarie2.unity
+    guid: 05b5066908fb872449c73072656b886a
+  - enabled: 1
+    path: Assets/Project/Scenes/Scenarie3.unity
+    guid: 8358ad4ebd9179a458a7a8f8a0becd87
+  - enabled: 1
+    path: Assets/Project/Scenes/Scenarie4.unity
+    guid: 20adb217e7abc0240802b724ab5edb2c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: cba66a2e245fc684db12a6f4b60a5077, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -478,7 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e07d80296698c54ea81c37a6ea13dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 1000
   maxPower: 100
 --- !u!136 &8950834128744428538
 CapsuleCollider:
@@ -531,7 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a2a6b36713b7e34ea8b317fcf706c3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 20
 --- !u!4 &4048140395558465268 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3314f16fc48344d47a8a4388b8b36c0e, type: 3}

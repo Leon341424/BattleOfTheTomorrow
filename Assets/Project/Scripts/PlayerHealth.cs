@@ -34,6 +34,7 @@ public class PlayerHealth : MonoBehaviour
         powerBarFill = GameObject.FindWithTag("PowerBarP1").GetComponent<Image>();
         col = GetComponent<CapsuleCollider>();
         gameManager = FindFirstObjectByType<GameManager>();
+        GameManager.Instance.RegisterPlayer(this);
     }
 
     void Update()
@@ -61,6 +62,7 @@ public class PlayerHealth : MonoBehaviour
         {
             damage *= 0.1f;
             GainPower(2f);
+            AudioManager.Instance.PlayOneShot("Blocked");
         }
 
         currentHealth -= damage;

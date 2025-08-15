@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Data.Common;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class EnemyHealth : MonoBehaviour
     private Collider colliderObject;
     private EnemyControl enemyControl;
     private Player2Control enemyControl1;
+    private BossEnemyControl enemyControl2;
     CapsuleCollider col;
     private GameManager gameManager;
 
@@ -30,11 +32,13 @@ public class EnemyHealth : MonoBehaviour
         UpdatePowerUIPlayer();
         enemyControl = GetComponent<EnemyControl>();
         enemyControl1 = GetComponent<Player2Control>();
+        enemyControl2 = GetComponent<BossEnemyControl>();
         Invoke("FindBars", 0.1f);
         /*healthBarFill = GameObject.FindWithTag("LifeBarP2").GetComponent<Image>();
         powerBarFill = GameObject.FindWithTag("PowerBarP2").GetComponent<Image>();*/
         col = GetComponent<CapsuleCollider>();
         gameManager = FindFirstObjectByType<GameManager>();
+        GameManager.Instance.RegisterEnemy(this);
     }
 
     void FindBars()
@@ -52,26 +56,33 @@ public class EnemyHealth : MonoBehaviour
             {
                 enemyControl.EnableSuper();
             }
-            else
+            else if (enemyControl1 != null)
             {
                 enemyControl1.EnableSuper();
+            }
+            else 
+            {
+                enemyControl2.EnableSuper();
             }
         }
     }
 
     public void TakeDamageEnemy(float damage)
     {
-        if ((enemyControl != null && enemyControl.isBlock) || (enemyControl1 != null && enemyControl1.isBlock))
+        if ((enemyControl != null && enemyControl.isBlock) || (enemyControl1 != null && enemyControl1.isBlock)
+        || (enemyControl2 != null && enemyControl2.isBlock))
         {
             damage *= 0.1f;
             GainPower(2f);
+            AudioManager.Instance.PlayOneShot("Blocked");
         }
         currentHealth -= damage;
         
         bool enemyBlock = enemyControl != null && enemyControl.isBlock;
         bool enemy1Block = enemyControl1 != null && enemyControl1.isBlock;
+        bool enemy2Block = enemyControl1 != null && enemyControl1.isBlock;
 
-        if ((!enemyBlock || !enemy1Block) && !isThrow)
+        if ((!enemyBlock || !enemy1Block || !enemy2Block) && !isThrow)
         {
             animator.SetTrigger("Damage");
             AudioManager.Instance.PlayOneShot("Punch");
@@ -125,6 +136,9 @@ public class EnemyHealth : MonoBehaviour
         Player2Control p2c = GetComponent<Player2Control>();
         if (p2c != null) p2c.enabled = false;
         gameManager.PlayerWonRound(1);
+
+        BossEnemyControl p3c = GetComponent<BossEnemyControl>();
+        if (p3c != null) p3c.enabled = false;
     }
 
     public void EnableThrow()

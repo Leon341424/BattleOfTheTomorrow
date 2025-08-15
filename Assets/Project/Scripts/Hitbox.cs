@@ -52,13 +52,11 @@ public class Hitbox : MonoBehaviour
     {
         canDamage = true;
         alreadyHit.Clear();
-        Debug.Log("daño activado");
     }
 
     public void DisableDamage()
     {
         canDamage = false;
-        Debug.Log("daño desactivado");
     }
 
     /*private IEnumerator DamageWindow(float time)

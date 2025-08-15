@@ -73,10 +73,10 @@ public class Weapon : MonoBehaviour
             col.enabled = false;
         }
 
-        Quaternion originalRotation = weapon.transform.rotation;
+        //Quaternion originalRotation = weapon.transform.rotation;
         weapon.transform.SetParent(handPoint);
         weapon.transform.localPosition = Vector3.zero;
-        weapon.transform.rotation = originalRotation;
+        weapon.transform.localRotation = Quaternion.identity;
 
         weaponInHand = weapon;
         nearbyWeapon = null;

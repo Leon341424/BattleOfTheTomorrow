@@ -8,8 +8,9 @@ public class SpecialHitbox : MonoBehaviour
     private PlayerHealth playerPower;
     void Start()
     {
-        playerPower = GetComponent<PlayerHealth>();
+        playerPower = FindFirstObjectByType<PlayerHealth>();
     }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))

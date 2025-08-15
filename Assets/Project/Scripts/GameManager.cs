@@ -43,7 +43,8 @@ public class GameManager : MonoBehaviour
     public GameObject finalBossPrefab;
     public Sprite finalBossImage;
 
-
+    public void RegisterPlayer(PlayerHealth p1) => player1Health = p1;
+    public void RegisterEnemy(EnemyHealth p2) => player2Health = p2;
     void Awake()
     {
         if (Instance == null)
@@ -57,15 +58,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     public void TimeOutRound()
     {
-
-        GameObject player1Obj = GameObject.FindWithTag("Player");
-        player1Health = player1Obj.GetComponent<PlayerHealth>();
-
-        GameObject player2Obj = GameObject.FindWithTag("Enemy");
-        player2Health = player2Obj.GetComponent<EnemyHealth>();
-
         if (player1Health != null && player2Health != null)
         {
             if (player1Health.GetCurrentHealth() > player2Health.GetCurrentHealth())
@@ -79,7 +74,8 @@ public class GameManager : MonoBehaviour
             else
             {
                 Debug.Log("Empate por tiempo");
-                PlayerWonRound(1);
+                RoundText.Instance.AdvanceRound();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
         }
         else
@@ -105,8 +101,14 @@ public class GameManager : MonoBehaviour
         {
             if (currentMode == GameMode.Arcade)
             {
-                WinOrLose.Win();
-                SelectRandomCharacterEnemy();
+                if (currentStageIndex == arcadeScenes.Count - 1)
+                {
+                    WinOrLose.Final();
+                }
+                else
+                {
+                    WinOrLose.Win();
+                }
             }
             if (currentMode == GameMode.Versus)
             {
@@ -140,11 +142,13 @@ public class GameManager : MonoBehaviour
             if (currentStageIndex < arcadeScenes.Count)
             {
                 ResetRoundWins();
+                SelectRandomCharacterEnemy();
                 SceneManager.LoadScene(arcadeScenes[currentStageIndex]);
             }
             else
             {
-                SceneManager.LoadScene("VictoryScene");
+                //SceneManager.LoadScene("VictoryScene");
+                WinOrLose.Final();
             }
         }
 
@@ -173,12 +177,12 @@ public class GameManager : MonoBehaviour
     {
         currentMode = GameMode.Versus;
         ResetRoundWins();
-        /*if (arcadeScenes.Count > 0)
+        if (arcadeScenes.Count > 0)
         {
             int randomIndex = Random.Range(0, arcadeScenes.Count);
             SceneManager.LoadScene(arcadeScenes[randomIndex]);
-        }*/
-        SceneManager.LoadScene(versusScene);
+        }
+        //SceneManager.LoadScene(versusScene);
     }
     
     public void SelectRandomCharacterEnemy()

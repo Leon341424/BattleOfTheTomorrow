@@ -28,6 +28,15 @@ public class ButtonSelector : MonoBehaviour
                 EventSystem.current.SetSelectedGameObject(null); 
             }
         }*/
+        if (Input.mousePresent && 
+            (Mathf.Abs(Input.GetAxis("Mouse X")) > 0 || Mathf.Abs(Input.GetAxis("Mouse Y")) > 0))
+        {
+            if (!usingMouse)
+            {
+                usingMouse = true;
+                EventSystem.current.SetSelectedGameObject(null); // Limpia selección
+            }
+        }
 
         if (Input.anyKeyDown && !Input.GetMouseButtonDown(0))
         {

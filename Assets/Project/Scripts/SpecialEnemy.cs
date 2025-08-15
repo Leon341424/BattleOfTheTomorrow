@@ -5,6 +5,7 @@ public class SpecialEnemy : MonoBehaviour
 {
     public GameObject SpecialPrefab;
     public GameObject SuperSpecialPrefab;
+    public GameObject SpecialPrefab2;
     public float SpecialForce;
 
     private GameObject tmpSpecial;
@@ -12,9 +13,11 @@ public class SpecialEnemy : MonoBehaviour
     private GameObject tmpSuperSpecial;
 
     private bool specialActive;
+    private bool specialActive2;
 
     private bool superSpecialActive;
     private Transform opponent;
+    private Vector3 worldOffset;
 
     void Start()
     {
@@ -35,6 +38,13 @@ public class SpecialEnemy : MonoBehaviour
             DisableSpecial();
         }
 
+        if (specialActive2)
+        {
+            StartCoroutine(DelaySpecial2(0.75f));
+            AudioManager.Instance.PlayOneShot("special");
+            DisableSpecial2();
+        }
+
         if (superSpecialActive)
         {
             StartCoroutine(DelaySuperSpecial(1.25f));
@@ -52,10 +62,21 @@ public class SpecialEnemy : MonoBehaviour
     {
         specialActive = false;
     }
+    public void EnableSpecial2()
+    {
+        specialActive2 = true;
+    }
+
+    public void DisableSpecial2()
+    {
+        specialActive2 = false;
+    }
 
     public void EnableSuperSpecial()
     {
         superSpecialActive = true;
+        Vector3 localOffset = new Vector3(0f, 2f, 33f);
+        worldOffset = transform.TransformPoint(localOffset);
     }
 
     public void DisableSuperSpecial()
@@ -72,10 +93,17 @@ public class SpecialEnemy : MonoBehaviour
         Destroy(tmpSpecial, 4f);
     }
 
+    private void Fire2()
+    {
+        GameObject tmpSpecial = Instantiate(SpecialPrefab2, transform.position, Quaternion.identity);
+        Vector3 direction = (opponent.position.x < transform.position.x) ? Vector3.right : Vector3.left;
+        tmpSpecial.transform.right = direction;
+        tmpSpecial.GetComponent<Rigidbody>().AddForce(direction * SpecialForce, ForceMode.Impulse);
+        Destroy(tmpSpecial, 4f);
+    }
+
     private void FireSuper()
     {
-        Vector3 localOffset = new Vector3(0f, 2f, 20f); 
-        Vector3 worldOffset = transform.TransformPoint(localOffset);
         GameObject tmpSuperSpecial = Instantiate(SuperSpecialPrefab, worldOffset,
         Quaternion.identity);
         Vector3 direction = (opponent.position.x > transform.position.x) ? Vector3.right : Vector3.left;
@@ -87,6 +115,12 @@ public class SpecialEnemy : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         Fire();
+    }
+
+    private IEnumerator DelaySpecial2(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Fire2();
     }
 
     private IEnumerator DelaySuperSpecial(float time)

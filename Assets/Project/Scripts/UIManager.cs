@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     public GameObject WinPanel;
     public GameObject LosePanel;
     public GameObject VersusFinalPanel;
+    public GameObject FinalPanel;
 
     private GameManager gameManager;
 
@@ -26,6 +27,7 @@ public class UIManager : MonoBehaviour
     public float roundTime = 99f;
     private float currentTime;
     public TextMeshProUGUI timerText;
+    private bool timeOutTriggered = false;
 
     void Start()
     {
@@ -36,6 +38,7 @@ public class UIManager : MonoBehaviour
         int round = RoundText.Instance != null ? RoundText.Instance.currentRound : 1;
         ShowRoundText(round);
         currentTime = roundTime;
+        timeOutTriggered = false;
     }
 
     void Update()
@@ -44,22 +47,23 @@ public class UIManager : MonoBehaviour
     }
 
     private void HandleTimer()
+{
+    if (currentTime > 0)
     {
-        if (currentTime > 0)
-        {
-            currentTime -= Time.deltaTime;
-            if (currentTime < 0) currentTime = 0;
-        }
-        else
-        {
-            gameManager.TimeOutRound();
-        }
-
-        if (timerText != null)
-        {
-            timerText.text = Mathf.CeilToInt(currentTime).ToString();
-        }
+        currentTime -= Time.deltaTime;
+        if (currentTime < 0) currentTime = 0;
     }
+    else if (!timeOutTriggered)
+    {
+        timeOutTriggered = true;
+        gameManager.TimeOutRound();
+    }
+
+    if (timerText != null)
+    {
+        timerText.text = Mathf.CeilToInt(currentTime).ToString();
+    }
+}
 
     public void HUD()
     {
@@ -67,11 +71,15 @@ public class UIManager : MonoBehaviour
         HUDPanel.SetActive(true);
         PausePanel.SetActive(false);
         WinPanel.SetActive(false);
+        FinalPanel.SetActive(false);
         PauseOptionPanel.SetActive(false);
         PauseAudioPanel.SetActive(false);
         PauseVideoPanel.SetActive(false);
         PauseControlPanel.SetActive(false);
-        AudioManager.Instance.Play("Fight1");
+        string[] songs = { "Fight1", "Fight2", "Fight3" };
+        int randomIndex = Random.Range(0, songs.Length);
+        string selectedSong = songs[randomIndex];
+        AudioManager.Instance.Play(selectedSong);
     }
 
     public void pause()
@@ -80,6 +88,7 @@ public class UIManager : MonoBehaviour
         HUDPanel.SetActive(false);
         PausePanel.SetActive(true);
         WinPanel.SetActive(false);
+        FinalPanel.SetActive(false);
         PauseOptionPanel.SetActive(true);
         PauseAudioPanel.SetActive(false);
         PauseVideoPanel.SetActive(false);
@@ -91,6 +100,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0f;
         HUDPanel.SetActive(false);
         WinPanel.SetActive(true);
+        FinalPanel.SetActive(false);
         PauseOptionPanel.SetActive(false);
         PauseAudioPanel.SetActive(false);
         PauseVideoPanel.SetActive(false);
@@ -108,6 +118,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0f;
         HUDPanel.SetActive(false);
         LosePanel.SetActive(true);
+        FinalPanel.SetActive(false);
         PauseOptionPanel.SetActive(false);
         PauseAudioPanel.SetActive(false);
         PauseVideoPanel.SetActive(false);
@@ -118,6 +129,21 @@ public class UIManager : MonoBehaviour
     public void LoseBotton()
     {
         gameManager.ResetMatch();
+    }
+
+    public void Final()
+    {
+        Time.timeScale = 0f;
+        HUDPanel.SetActive(false);
+        WinPanel.SetActive(false);
+        FinalPanel.SetActive(false);
+        LosePanel.SetActive(false);
+        FinalPanel.SetActive(true);
+        PauseOptionPanel.SetActive(false);
+        PauseAudioPanel.SetActive(false);
+        PauseVideoPanel.SetActive(false);
+        PauseControlPanel.SetActive(false);
+        AudioManager.Instance.Play("Victory");
     }
 
     public void Versus()

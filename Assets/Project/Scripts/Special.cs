@@ -17,6 +17,8 @@ public class Special : MonoBehaviour
 
     private bool superSpecialActive;
     private Transform opponent;
+    private Vector3 worldOffset;
+
 
     void Start()
     {
@@ -74,6 +76,8 @@ public class Special : MonoBehaviour
     public void EnableSuperSpecial()
     {
         superSpecialActive = true;
+        Vector3 localOffset = new Vector3(0f, 2f, 33f); 
+        worldOffset = transform.TransformPoint(localOffset);
     }
 
     public void DisableSuperSpecial()
@@ -101,8 +105,6 @@ public class Special : MonoBehaviour
 
     private void FireSuper()
     {
-        Vector3 localOffset = new Vector3(0f, 2f, 20f); 
-        Vector3 worldOffset = transform.TransformPoint(localOffset);
         GameObject tmpSuperSpecial = Instantiate(SuperSpecialPrefab, worldOffset,
         Quaternion.identity);
         Vector3 direction = (opponent.position.x > transform.position.x) ? Vector3.right : Vector3.left;

@@ -44,6 +44,7 @@ public class EnemyControl : MonoBehaviour
         arma = GetComponent<Weapon>();
         enemyHitbox = GetComponent<HitboxEnemy>();
         shooter = GetComponentInChildren<ShooterEnemy>();
+        enemyHealth = GetComponent<EnemyHealth>();
     }
 
     void FindPlayer()
@@ -94,7 +95,7 @@ public class EnemyControl : MonoBehaviour
                 DisableSuper();
             }
 
-            else if (Random.value > 0.1 && !isBlock && !isSpecial & !isSuperSpecial)
+            else if (Random.value > 0.4 && !isBlock && !isSpecial & !isSuperSpecial)
             {
                 float direction = transform.position.x < opponent.position.x ? 1f : -1f;
                 rb.linearVelocity = new Vector3(direction * speed, rb.linearVelocity.y, 0f);
@@ -172,7 +173,7 @@ public class EnemyControl : MonoBehaviour
             animator.SetTrigger(selectedAirAttack);
             yield return new WaitForSeconds(0.6f);
         }
-        if (!isGrabbing && distanceToOpponent < 2.5f && Random.value < 0.3f)
+        if (!isGrabbing && distanceToOpponent < 2.5f && Random.value < 0.2f && !isWeapon)
         {
             TryGrab();
             yield return new WaitForSeconds(1.0f);

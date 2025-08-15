@@ -6,7 +6,7 @@ public class SpecialEnemyHitbox : MonoBehaviour
     private EnemyHealth enemyPower;
     void Start()
     {
-        enemyPower = GetComponent<EnemyHealth>();
+        enemyPower = FindFirstObjectByType<EnemyHealth>();
     }
     void OnTriggerEnter(Collider other)
     {

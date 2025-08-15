@@ -123,6 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpecialPrefab: {fileID: 5583397743581259825, guid: a501e9d2b5c960a4ea4b85775f053249, type: 3}
   SuperSpecialPrefab: {fileID: 7274944520816815447, guid: 627f15a1bf2b6494ebb77a268ce15b23, type: 3}
+  SpecialPrefab2: {fileID: 5583397743581259825, guid: 5e7c172dcbad8864b8c07ae182bf7e3c, type: 3}
   SpecialForce: 10
 --- !u!1001 &7993829872744491952
 PrefabInstance:
@@ -441,7 +442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c50ec15a13ce8eb489aec6d8b8a604cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1000
+  maxHealth: 500
   maxPower: 100
 --- !u!114 &4022011848217823139
 MonoBehaviour:

@@ -9665,8 +9665,8 @@ MonoBehaviour:
   ImageCharacter6: {fileID: 21300000, guid: 515cc3792b774e941b9900836766241b, type: 3}
   ImageCharacter7: {fileID: 21300000, guid: 616a0b85909055e43a8c0c913e46dde8, type: 3}
   ImageCharacter8: {fileID: 21300000, guid: 08a7987f9293fc04789190cc3fbfd745, type: 3}
-  finalBossPrefab: {fileID: 7855711719949068635, guid: 7452dcc2a74b63e469c351b4555986a1, type: 3}
-  finalBossImage: {fileID: 21300000, guid: 0ccba10fc5d1cf64d862b1ca3aaa37f2, type: 3}
+  finalBossPrefab: {fileID: 7855711719949068635, guid: cc33b58196c7a2540b9bacdc8e2a45e1, type: 3}
+  finalBossImage: {fileID: 21300000, guid: 2fcbcc4683a35bb4997439b623be0131, type: 3}
 --- !u!4 &734121474
 Transform:
   m_ObjectHideFlags: 0
@@ -25266,7 +25266,7 @@ MonoBehaviour:
   audioSourceSFX: {fileID: 734121475}
   musicClips:
   - name: Selection
-    clip: {fileID: 8300000, guid: 30ca2cf403c3b034fa738af223d39fe1, type: 3}
+    clip: {fileID: 8300000, guid: 3e941ba97be669b40884ffb51e7b44b7, type: 3}
   - name: Menu
     clip: {fileID: 8300000, guid: a63f87f883787cb47a6a89c1d7db2fe8, type: 3}
   - name: Fight1
@@ -25277,8 +25277,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 104d08088efbba547ac711c686cb3b43, type: 3}
   - name: VersusPanel
     clip: {fileID: 8300000, guid: 782935dc6a50f234399ed7199ca562c3, type: 3}
-  - name: 
-    clip: {fileID: 0}
+  - name: Fight2
+    clip: {fileID: 8300000, guid: ccad7a68a8f62ad4e8ecb5c70fc83583, type: 3}
+  - name: Fight3
+    clip: {fileID: 8300000, guid: 8c6d8e06e6232644aa8b54824cfa64fa, type: 3}
   sfxClips:
   - name: FightEffect
     clip: {fileID: 8300000, guid: 9d8a2c44609f09f40add52aa328e9a37, type: 3}
@@ -25288,6 +25290,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 9454f5e244249ef4aa15f1c829d69fb1, type: 3}
   - name: SuperSpecial
     clip: {fileID: 8300000, guid: 69d56d11556faf24a9a1d8656d2ccc0c, type: 3}
+  - name: Blocked
+    clip: {fileID: 8300000, guid: 006dab0e8b531d94fbc8de8408f1eb15, type: 3}
 --- !u!4 &1844426269
 Transform:
   m_ObjectHideFlags: 0
